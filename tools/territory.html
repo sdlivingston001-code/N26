@@ -1,0 +1,26 @@
+---
+layout: default
+title: Territories
+---
+<!-- 
+  territory.html — Territory income resolver.
+  Scripts: dice, icons, injuryRenderer, timer, lastingInjuriesEngine,
+           territorySchemas, territoryEngine, territoryUI.
+  Data:    territories.json, gangs.json, lastingInjuries.json.
+-->
+
+<h1>Territories</h1>
+<p>The following section allows for the campaigns House Rules.</p>
+<div id="territory-container"></div>
+
+<button id="resolve-territories">Resolve Territories</button>
+
+<div id="territory-results"></div>
+
+<div id="territory-reference" class="mt-30"></div>
+
+<!-- Adjust this path if your built JSON lives elsewhere -->
+<script type="module">
+  import { TerritoryUI } from '{{ "/assets/js/territoryUI.js" | relative_url }}';
+  TerritoryUI.init("{{ '/data/territories.json' | relative_url }}", "{{ '/data/gangs.json' | relative_url }}", "{{ '/data/lastingInjuries.json' | relative_url }}");
+</script>

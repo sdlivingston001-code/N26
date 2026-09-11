@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "./.vscode/schemas/scenario.schema.json": "_data/scenarios/*.yml"
+  }
+}

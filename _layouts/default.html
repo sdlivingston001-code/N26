@@ -1,0 +1,32 @@
+<!--
+  default.html — Master layout for every page in the site.
+
+  Provides the shared head (charset, viewport, stylesheet),
+  wraps page content in a .main container, loads main.js (auto-btn-class,
+  collapsible click-to-close), and appends the sticky bottom-bar include.
+
+  Cache-busting:  All asset hrefs include a timestamp query-string
+  so browsers always fetch the latest build after a deploy.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  <title>{{ page.title | default: site.title }}</title>
+</head>
+
+<body>
+
+
+
+  <div class="main">
+    {{ content }}
+  </div>
+
+  <script type="module" src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  {% include bottom-bar.html %}
+  
+</body>
+</html>

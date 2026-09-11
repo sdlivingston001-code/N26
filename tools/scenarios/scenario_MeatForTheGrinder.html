@@ -1,0 +1,58 @@
+---
+layout: default
+title: Meat for the Grinder
+---
+<!-- 
+  scenario_MeatForTheGrinder.html — "Meat for the Harvest" scenario tool.
+  Rolls scavenged weapons, shows weapon-profile tables, fighter skills,
+  weapon traits, and reference roll tables.
+  Scripts: dice, icons, timer, scenario_MeatForTheGrinderEngine,
+           scenario_MeatForTheGrinderUI.
+  Data:    scenario_MeatForTheGrinder.json, weaponTraits.json, fighterSkills.json.
+-->
+
+<h1>Meat for the Harvest</h1>
+
+<h2>Scavenged Weapons</h2>
+<button id="roll-scavenged-weapon">Roll Scavenged Weapon</button>
+<div id="scavenged-weapons-results"></div>
+
+<div id="weapon-profiles-table"></div>
+
+<hr class="hr-dark" style="margin: 40px 0;">
+
+<details class="reference-tables-collapsible">
+<summary>In-battle Special rules</summary>
+<ul>
+  <li>All fighters start with the skills <b>True Grit</b>, <b>Iron Jaw</b>, and <b>Unstoppable</b>.</li>
+  <li>Weapons are poor quality, <b>Ammo checks</b> are always failed.</li>
+  <li>Fighters can open crates using a <b>Loot (basic)</b> action (no skill test required). Roll 2D6 against the table above, gain the indicated weapon, and then remove the crate.</li>
+  <li>If a fighter with a <b>Scavenged weapon</b> is <b>Taken out of Action</b>, the weapon is dropped at the centre of their base. Other fighters can pick it up using a <b>Loot (basic)</b> action.</li>
+</ul>
+</details>
+
+
+<details class="reference-tables-collapsible">
+<summary>Fighter Skills</summary>
+<div id="fighter-skills-container"></div>
+</details>
+
+<details class="reference-tables-collapsible">
+<summary>Weapon Traits</summary>
+<div id="weapon-traits-container"></div>
+</details>
+
+
+<details class="reference-tables-collapsible">
+<summary>Reference Tables</summary>
+<div id="roll-table-container" class="mt-20"></div>
+</details>
+
+<script type="module">
+  import { scenario_MeatForTheGrinderUI } from '{{ "/assets/js/scenarios/scenario_MeatForTheGrinderUI.js" | relative_url }}';
+  scenario_MeatForTheGrinderUI.init(
+    "{{ '/data/scenarios/scenario_MeatForTheGrinder.json' | relative_url }}",
+    "{{ '/data/weaponTraits.json' | relative_url }}",
+    "{{ '/data/fighterSkills.json' | relative_url }}"
+  );
+</script>

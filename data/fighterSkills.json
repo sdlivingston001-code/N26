@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /data/fighterSkills.json
+---
+{{ site.data.fighterSkills | jsonify }}

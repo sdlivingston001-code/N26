@@ -1,0 +1,44 @@
+---
+layout: default
+title: Lasting Injuries
+---
+<!-- 
+  lastingInjuries.html — Lasting injury roller (5 modes + rogue-doc + mutations).
+  Scripts: dice, icons, injuryRenderer, timer, lastingInjuriesEngine, lastingInjuriesUI.
+  Data:    lastingInjuries.json.
+-->
+
+<h1>Welcome to the Emergency Room!</h1>
+<p>House rules remove <b>Into Recovery</b> and <b>Convalescence</b> to simplify admin.</p>
+<h2>Lasting Injuries</h2>
+
+<div class="selector-wrapper">
+  <label class="selector-label" for="injury-mode-selector">Select Injury Mode:</label>
+  <select id="injury-mode-selector" class="select-input">
+    <option value="standard_lasting_injuries" selected>Lasting Injuries — House Rules (D66)</option>
+    <option value="standard_lasting_injuries_core">Lasting Injuries — Core Rules (D66)</option>
+    <option value="ironman_lasting_injuries">Lasting Injuries — Ironman Variant (D6)</option>
+    <option value="spyrer_hunting_rig_glitches">Spyrer Hunting Rig Glitches — House Rules (D66)</option>
+    <option value="spyrer_hunting_rig_glitches_core">Spyrer Hunting Rig Glitches — Core Rules (D66)</option>
+  </select>
+</div>
+
+<button id="resolve-lasting-injuries">Resolve Lasting Injuries</button>
+
+<div id="lasting-injuries-results"></div>
+
+<div id="cyberteknika-results"></div>
+<div id="mutation-results"></div>
+
+<hr class="hr-dark" style="margin: 40px 0;">
+
+<details class="reference-tables-collapsible">
+  <summary>Reference Tables</summary>
+  <div id="injury-table-container" class="mt-20"></div>
+</details>
+
+<!-- Adjust this path if your built JSON lives elsewhere -->
+<script type="module">
+  import { LastingInjuriesUI } from '{{ "/assets/js/lastingInjuriesUI.js" | relative_url }}';
+  LastingInjuriesUI.init("{{ '/data/lastingInjuries.json' | relative_url }}");
+</script>

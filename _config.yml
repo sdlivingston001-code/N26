@@ -1,0 +1,8 @@
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+baseurl: "/BadCredit"
+
+plugins:
+  - jekyll-seo-tag

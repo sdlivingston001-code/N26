@@ -1,0 +1,128 @@
+# gangs.yml
+#
+# One top-level key per gang (used as the `<gangId>` suffix for territory
+# overrides in territories.yml, e.g. `income_cawdor`). Fields:
+#   name             - Display name shown in the gang selector.
+#   dominionGangId   - The canonical Dominion-campaign house/gang ID used to
+#                      key gang-specific overrides elsewhere. For "legacy"
+#                      gangs (Venators, Outcasts, Secundan Incursion) this
+#                      is literally the string "legacy" — see below.
+#   legacy_venator, legacy_outcast, legacy_secundan_incursion
+#                    - Set to 1 on a normal house entry to mark it as a
+#                      valid house affiliation for that legacy gang type.
+#                      territoryUI.js reads these flags to populate the
+#                      "Select House Affiliation" dropdown shown when a
+#                      legacy gang is selected.
+#
+# Legacy gangs (dominionGangId: legacy) don't have their own territory
+# rules; the player picks a house affiliation at runtime and that house's
+# rules are used instead (see territoryUI.js `updateLegacySelector`).
+
+cawdor: #House of faith
+  name: House Cawdor
+  dominionGangId: cawdor
+  legacy_venator: 1
+  legacy_outcast: 1
+  legacy_secundan_incursion: 1
+
+delaque: #House of shadows
+  name: House Delaque
+  dominionGangId: delaque
+  legacy_venator: 1
+  legacy_outcast: 1
+  legacy_secundan_incursion: 1
+
+escher: #House of blades
+  name: House Escher
+  dominionGangId: escher
+  legacy_venator: 1
+  legacy_outcast: 1
+  legacy_secundan_incursion: 1
+
+goliath: #House of chains
+  name: House Goliath
+  dominionGangId: goliath
+  legacy_venator: 1
+  legacy_outcast: 1
+  legacy_secundan_incursion: 1
+
+ogryns: #House of chains
+  name: Slave Ogryns
+  dominionGangId: unaffiliated
+  legacy_venator: 1
+
+orlock: #House of iron
+  name: House Orlock
+  dominionGangId: orlock
+  legacy_venator: 1
+  legacy_outcast: 1
+  legacy_secundan_incursion: 1
+
+van_saar: #House of artifice
+  name: House Van Saar
+  dominionGangId: van_saar
+  legacy_venator: 1
+  legacy_outcast: 1
+  legacy_secundan_incursion: 1
+
+enforcers: #Bastions of law (no ebook)
+  name: Palanite Enforcers
+  dominionGangId: enforcers
+  legacy_secundan_incursion: 1
+
+badzone_enforcers: #Bastions of law (no ebook)
+  name: Badzone Enforcers
+  dominionGangId: badzone_enforcers
+  legacy_secundan_incursion: 1
+
+corpse_grinder_cult: #Book of ruin
+  name: Corpse Grinder Cult
+  dominionGangId: corpse_grinder_cult
+
+genestealer_cult: #Book of ruin
+  name: Genestealer Cult
+  dominionGangId: genestealer_cult
+
+helot_cultists: #Book of ruin
+  name: Helot Chaos Cults
+  dominionGangId: helot_cultists
+
+ash_waste_nomads: #Trides of the wastlands
+  name: Ash Waste Nomads
+  dominionGangId: ash_waste_nomads
+
+squats: #Halls of the ancients
+  name: Ironhead Squat Prospectors
+  dominionGangId: squats
+  legacy_venator: 1
+  legacy_secundan_incursion: 1
+
+outcasts: #Book of the outcast. If aligned to a house they should get access to those house boons.
+  name: Underhive Outcasts
+  dominionGangId: legacy
+  legacy_outcast: 1
+
+venators: #Apocrypha: Bonedry and Broke
+  name: Venators
+  dominionGangId: legacy
+  legacy_venator: 1
+
+spyrers: #Book of desolation. If variants use core house
+  name: Spyre Hunters
+  dominionGangId: spyrers
+
+secundan_incursion: #Book of desolation. If variants use core house
+  name: Secundan Incursion
+  dominionGangId: legacy
+  legacy_secundan_incursion: 1
+
+malstrain: #Book of desolation.
+  name: Malstrain
+  dominionGangId: unaffiliated
+
+unaffiliated:
+  name: Unaffiliated
+  dominionGangId: unaffiliated
+  legacy_venator: 1
+  legacy_outcast: 1
+  legacy_secundan_incursion: 1

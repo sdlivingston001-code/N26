@@ -1,0 +1,41 @@
+---
+layout: default
+title: Loot Casket
+---
+<!-- 
+  lootCasket.html — Loot casket resolver (smash / bypass).
+  Scripts: dice, icons, timer, lootCasketEngine, lootCasketUI.
+  Data:    lootCasket.json.
+-->
+
+<h1>Loot Casket!</h1>
+
+<p>These rules are from Goonhammers' Lost Zone rules (with some tweaks).</p>
+
+<div style="display:flex; gap:0.5rem;">
+  <button id="resolve-loot-casket-smash">Smash it open</button>
+  <button id="resolve-loot-casket-bypass">Bypass the lock</button>
+</div>
+<div id="loot-casket-results"></div>
+
+<hr class="hr-dark" style="margin: 40px 0;">
+
+<details class="reference-tables-collapsible">
+  <summary>Loot Casket Actions</summary>
+  <ul>
+    <li><b>Smash Open Loot Casket (Basic):</b> If this fighter is within 1&quot; of a Loot Casket, roll a D6 and add either their Strength or the Strength characteristic of a weapon with the Melee trait they are armed with. <u>If the total is 6 or more, the casket is opened. However, subtract 1 from the roll to determine the casket&apos;s contents, to a minimum of 1.</u></li>
+    <li><b>Bypass Loot Casket Lock (Basic):</b> If this fighter is within 1&quot; of a Loot Casket, make an Intelligence test for this fighter. If the test is passed, the casket is opened.</li>
+    <li><b>Carry Loot Casket (Simple):</b> If this fighter is within 1&quot; of a Loot Casket, they may make a Move (Simple) action, carrying the Loot Casket with them. When the action ends, the casket is placed in base contact with this fighter.</li>
+  </ul>
+</details>
+
+<details class="reference-tables-collapsible">
+  <summary>Reference Tables</summary>
+  <div id="loot-table-container" class="mt-20"></div>
+</details>
+
+<!-- Adjust this path if your built JSON lives elsewhere -->
+<script type="module">
+  import { LootCasketUI } from '{{ "/assets/js/lootCasketUI.js" | relative_url }}';
+  LootCasketUI.init("{{ '/data/lootCasket.json' | relative_url }}");
+</script>

@@ -1,0 +1,366 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "scenario.schema.json",
+  "title": "Necromunda Scenario",
+  "description": "Schema for _data/scenarios/*.yml scenario definition files.",
+  "type": "object",
+  "required": ["id", "number", "name"],
+  "additionalProperties": false,
+
+  "properties": {
+
+    "id": {
+      "type": "string",
+      "description": "Matches the filename without extension (e.g. '9_borderDispute').",
+      "pattern": "^[0-9a-zA-Z_]+$"
+    },
+
+    "number": {
+      "type": "integer",
+      "description": "Scenario number used for sorting the dropdown.",
+      "minimum": 1
+    },
+
+    "name": {
+      "type": "string",
+      "description": "Display name of the scenario."
+    },
+
+    "battle_type": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Terrain / ruleset variant.",
+          "enum": ["underhive", "zone_mortalis", "sector_mechanicus", "ash_wastes"]
+        },
+        "restrictions": {
+          "type": "array",
+          "description": "HTML strings describing what is not allowed in this battle.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "battlefield": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "setup": {
+          "type": "string",
+          "description": "Token resolved via scenario_defaults, or a freeform HTML description.",
+          "examples": ["standard", "zone_mortalis", "ash_wastes", "sector_mechanicus"]
+        }
+      }
+    },
+
+    "crews": {
+      "type": "object",
+      "required": ["method", "dice"],
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "Crew selection method name.",
+          "examples": [
+            "Custom Selection",
+            "Random Selection",
+            "Hybrid Selection",
+            "Entire Crew"
+          ]
+        },
+        "dice": {
+          "type": "string",
+          "description": "Dice expression for crew size (e.g. 'D3+3', '3', 'D6')."
+        },
+        "reinforcements_deck": {
+          "type": "boolean",
+          "description": "When true, remaining fighters form a Reinforcements deck. Canonical text is sourced from scenario_defaults."
+        }
+      }
+    },
+
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "steps": {
+          "type": "array",
+          "description": "Ordered HTML deployment instructions shown as a numbered list.",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    },
+
+    "gang_tactics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "type": "string",
+          "description": "Token resolved via scenario_defaults, or freeform text. Use 'none' for no tactics.",
+          "examples": ["none"]
+        },
+        "per_round": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "trigger": {
+              "type": "string",
+              "description": "When per-round tactics are drawn (e.g. 'start of each round after the first')."
+            },
+            "method": {
+              "type": "string",
+              "description": "How tactics are determined (e.g. 'randomly determine one tactic per player')."
+            }
+          }
+        },
+        "underdog": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "trigger": {
+              "type": "string",
+              "description": "Condition that grants underdog tactics."
+            },
+            "when": {
+              "type": "string",
+              "description": "Pre-battle step reference (e.g. 'pre-battle sequence step 7')."
+            },
+            "per_credits": {
+              "type": "integer",
+              "description": "Credits difference per extra tactic card.",
+              "minimum": 1
+            },
+            "note": {
+              "type": "string",
+              "description": "Additional HTML note shown in the underdog info box."
+            }
+          }
+        }
+      }
+    },
+
+    "ending": {
+      "type": "object",
+      "required": ["condition"],
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "type": "string",
+          "description": "HTML string describing when the battle ends."
+        }
+      }
+    },
+
+    "victory": {
+      "type": "object",
+      "required": ["winner"],
+      "additionalProperties": false,
+      "properties": {
+        "winner": {
+          "type": "string",
+          "description": "HTML string describing the win condition."
+        },
+        "draw": {
+          "type": "string",
+          "description": "HTML string describing the draw condition."
+        }
+      }
+    },
+
+    "rewards": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "credits": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/rewardRow" }
+        },
+        "experience": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/$defs/rewardRow" },
+              {
+                "properties": {
+                  "note": {
+                    "type": "string",
+                    "description": "Supplementary note shown below condition (e.g. 'Regardless of whether they took part in the battle.')."
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "reputation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["condition", "changes"],
+            "additionalProperties": false,
+            "properties": {
+              "condition": {
+                "type": "string",
+                "description": "HTML condition description."
+              },
+              "changes": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["gang", "amount"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "gang": {
+                      "type": "string",
+                      "description": "Label for the affected gang (e.g. 'bottled out', 'relic defiled')."
+                    },
+                    "amount": {
+                      "type": "string",
+                      "description": "Reputation change as a string (e.g. '+D3', '-1', '-D3').",
+                      "pattern": "^[+-].*"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "special_rules": {
+      "type": "object",
+      "description": "Keyed by an internal rule id (snake_case). Each value is a rule entry.",
+      "additionalProperties": { "$ref": "#/$defs/specialRule" }
+    }
+
+  },
+
+  "$defs": {
+
+    "rewardRow": {
+      "type": "object",
+      "required": ["condition", "roll", "target"],
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "type": "string",
+          "description": "HTML condition description."
+        },
+        "roll": {
+          "type": "string",
+          "description": "Dice expression used in display (e.g. 'D6×10', 'D3')."
+        },
+        "target": {
+          "type": "string",
+          "description": "Who receives the reward (e.g. 'stash', 'leader', 'that fighter')."
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+
+    "specialRule": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the special rule."
+        },
+        "description": {
+          "type": "string",
+          "description": "HTML description when no structured breakdown is needed."
+        },
+        "trigger": {
+          "type": "string",
+          "description": "Plain-text trigger condition wrapped in text-trigger styling."
+        },
+        "trigger_range": {
+          "type": "number",
+          "description": "Range in inches that triggers the action.",
+          "minimum": 0
+        },
+        "trigger_range_unit": {
+          "type": "string",
+          "description": "Unit for trigger_range. Typically '\"' (inches)."
+        },
+        "trigger_note": {
+          "type": "string",
+          "description": "HTML note shown instead of trigger when a richer description is needed."
+        },
+        "action": {
+          "type": "object",
+          "required": ["name", "type"],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Action name (e.g. 'Defile Relic')."
+            },
+            "type": {
+              "type": "string",
+              "description": "Action cost type.",
+              "enum": ["Simple", "Basic", "Double", "Free"]
+            }
+          }
+        },
+        "effect": {
+          "type": "string",
+          "description": "HTML result / effect text."
+        },
+        "bonus": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "modifier": {
+              "description": "Numeric or string modifier value (e.g. 2, '+2')."
+            },
+            "tests": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Test types affected (e.g. ['Cool', 'Leadership'])."
+            },
+            "range": {
+              "type": "number",
+              "minimum": 0
+            },
+            "range_unit": {
+              "type": "string"
+            },
+            "applies_to": {
+              "type": "string"
+            }
+          }
+        },
+        "roll": {
+          "type": "string",
+          "description": "Dice expression for a roll triggered by this rule (e.g. 'D3')."
+        },
+        "per_player": {
+          "type": "boolean",
+          "description": "Whether the rule applies independently per player."
+        },
+        "deployment": {
+          "type": "string",
+          "description": "HTML instructions for deploying reinforcements or other fighters."
+        },
+        "result": {
+          "type": "string",
+          "description": "HTML outcome text (used in fleeing / forfeit rules)."
+        },
+        "additional": {
+          "type": "string",
+          "description": "HTML supplementary text appended after the main result."
+        }
+      }
+    }
+
+  }
+}

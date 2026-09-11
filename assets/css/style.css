@@ -1,0 +1,1126 @@
+/* ======================
+   style.css
+   ========================
+   Master stylesheet for BadCredit – Necromunda Campaign Companion.
+   
+   Section index:
+     1.  BODY / RESET
+     2.  BOTTOM-BAR (sticky nav + roll-info strip)
+     3.  MAIN CONTENT
+     4.  TABLE STYLES (generic, weapon-profiles, row colours, zebra)
+     5.  LIST STYLES
+     6.  SUIT SELECTION DIALOG (card-suit picker + number input)
+     7.  RESULT BOX COMPONENTS (7-colour coded outcome boxes)
+     8.  INFO BOXES (income, reroll, warning, recovery, error, death, cost)
+     9.  FORM CONTROLS (selectors, inputs, dropdowns)
+    10.  BUTTONS (default + colour variants)
+    11.  MUTATION CHECK (Chaos-themed panel)
+    12.  LAYOUT UTILITIES (flex helpers, text helpers, spacing)
+    13.  NESTED CONTENT
+    14.  SECTION DIVIDERS
+    15.  TIMER DISPLAY
+    16.  INLINE SVG ICONS
+    17.  TERRITORY CHECKBOXES
+    18.  UTILITY CLASSES
+    19.  TIMER COLOURS
+    20.  HR
+    21.  INLINE TEXT EMPHASIS
+    22.  COLLAPSIBLE REFERENCE TABLES
+    23.  RESPONSIVE / MOBILE
+   ====================== */
+
+/* ======================
+   1. BODY / RESET
+   ====================== */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.55;
+}
+
+p {
+  line-height: 1.65;
+}
+
+/* ======================
+   2. BOTTOM-BAR
+   ====================== */
+.page-bottom-sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+}
+
+#page-roll-info {
+  background: #2a2a2a;
+  color: #ddd;
+  padding: 0.4rem 1.5rem;
+}
+
+#page-roll-info:empty {
+  display: none;
+}
+
+#page-roll-info .timer-display {
+  margin: 0;
+  padding: 0.25rem 0;
+  border: none;
+  background: transparent;
+  color: #ddd;
+  border-radius: 0;
+  font-size: 13px;
+}
+
+#page-roll-info .timer-green {
+  color: #6fcf7a;
+}
+
+#page-roll-info .timer-grey {
+  color: #adb5bd;
+}
+
+#page-roll-info .timer-rolls {
+  color: #ccc;
+}
+
+.bottom-bar {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: #222;
+  color: white;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.bottom-bar a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  /* Larger tap targets for mobile */
+  padding: 0.75rem 1rem;
+  min-height: 44px;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.bottom-bar a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .bottom-bar {
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .bottom-bar a {
+    padding: 1rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ======================
+   3. MAIN CONTENT
+   ====================== */
+
+.main {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0;
+}
+
+/* ======================
+   4. TABLE STYLES
+   ====================== */
+
+/* Full table properties for better readability */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Table header and data cell styles */
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Header row styles */
+table th {
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+}
+
+/* Narrow first column for step numbers/letters */
+table th:first-child,
+table td:first-child {
+  width: 40px;
+  text-align: center;
+}
+
+/* Weapon profiles table: name column should not be narrow */
+table.weapon-profiles-table th:first-child,
+table.weapon-profiles-table td:first-child {
+  width: auto;
+  text-align: left;
+}
+
+/* Centre all stat columns (2nd through 9th), leave Name (1st) and Traits (last) left-aligned */
+table.weapon-profiles-table th:not(:first-child):not(:last-child),
+table.weapon-profiles-table td:not(:first-child):not(:last-child) {
+  text-align: center;
+}
+
+/* Bold boundary around multi-profile weapon groups */
+table.weapon-profiles-table tr.group-first td {
+  border-top: 2px solid #333;
+}
+table.weapon-profiles-table tr.group-last td {
+  border-bottom: 2px solid #333;
+}
+table.weapon-profiles-table tr.group-first td:first-child,
+table.weapon-profiles-table tr.group-last td:first-child,
+table.weapon-profiles-table tr.group-mid td:first-child {
+  border-left: 2px solid #333;
+}
+table.weapon-profiles-table tr.group-first td:last-child,
+table.weapon-profiles-table tr.group-last td:last-child,
+table.weapon-profiles-table tr.group-mid td:last-child {
+  border-right: 2px solid #333;
+}
+
+/* Weapon group header row (e.g. Shotgun spanning row) */
+table.weapon-profiles-table td.weapon-group-header {
+  background-color: #fff3cd;
+  text-align: left;
+}
+
+/* Injury / treatment reference table row colours */
+tr.row-green td { background-color: #d4edda; color: #155724; }
+tr.row-blue td   { background-color: #d1ecf1; color: #0c5460; }
+tr.row-yellow td { background-color: #fff3cd; color: #856404; }
+tr.row-red td    { background-color: #f8d7da; color: #721c24; }
+tr.row-grey td   { background-color: #e2e3e5; color: #383d41; }
+tr.row-black td  { background-color: #000;    color: #fff; }
+tr.row-purple td { background-color: #ede9fe; color: #4c1d95; }
+
+/* Zebra striping for table rows */
+table tr:nth-child(even) {
+  background-color: #d9d9d9;
+}
+
+/* Hover effect for table rows */
+table tr:hover {
+  background-color: #c9c9c9;
+}
+
+/* ======================
+   5. LIST STYLES
+   ====================== */
+
+ol, ul {
+  margin: 1rem 0;
+  padding-left: 2rem;
+  list-style-position: outside;
+}
+
+ol li, ul li {
+  margin: 0.5rem 0;
+  padding-left: 0.5rem;
+}
+
+/* ======================
+   6. SUIT SELECTION DIALOG
+   ====================== */
+
+.suit-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.suit-dialog {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.suit-dialog h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.suit-dialog p {
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.suit-button-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.suit-button {
+  padding: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.2s;
+}
+
+.suit-button:hover {
+  border-color: #333;
+  transform: scale(1.05);
+}
+
+.suit-button .suit-symbol {
+  display: block;
+}
+
+.suit-button .suit-name {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.suit-button .suit-symbol.black {
+  color: black;
+}
+
+.suit-button .suit-symbol.red {
+  color: red;
+}
+
+.suit-dialog .cancel-button {
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #333;
+}
+
+.suit-dialog .cancel-button:hover {
+  background: #e5e5e5;
+}
+
+.suit-dialog .number-input-message {
+  text-align: left;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.suit-dialog .number-input-field {
+  width: 80px;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.suit-dialog .number-input-field.input-error {
+  border-color: red;
+}
+
+.number-input-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.suit-dialog .confirm-button {
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+}
+
+.suit-dialog .confirm-button:hover {
+  background: #555;
+}
+
+/* ======================
+   7. RESULT BOX COMPONENTS
+   ====================== */
+
+@keyframes result-pop-in {
+  0%   { transform: translateY(-18px) scale(0.95); opacity: 0; }
+  60%  { transform: translateY(3px)   scale(1.02); opacity: 1; }
+  100% { transform: translateY(0)     scale(1);    opacity: 1; }
+}
+
+@keyframes result-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+.result-box {
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid;
+  margin-bottom: 10px;
+  text-align: center;
+  animation: result-pop-in 0.3s ease-out both;
+}
+
+.pop-in {
+  animation: result-pop-in 0.3s ease-out both;
+}
+
+.result-box-primary {
+  padding: 15px;
+  border-width: 3px;
+}
+
+.result-box-green {
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+}
+
+.result-box-blue {
+  background-color: #d1ecf1;
+  border-color: #17a2b8;
+  color: #0c5460;
+}
+
+.result-box-yellow {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+  color: #856404;
+}
+
+.result-box-red {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+}
+
+.result-box-purple {
+  background-color: #e7d4f0;
+  border-color: #9c27b0;
+  color: #4a148c;
+}
+
+.result-box-grey {
+  background-color: #e2e3e5;
+  border-color: #6c757d;
+  color: #383d41;
+}
+
+.result-box-black {
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+/* Result box heading colors */
+.result-box-green .result-heading { color: #0c5c2c; }
+.result-box-blue .result-heading { color: #074b57; }
+.result-box-yellow .result-heading { color: #533f03; }
+.result-box-red .result-heading { color: #491217; }
+.result-box-purple .result-heading { color: #311b92; }
+.result-box-grey .result-heading { color: #1b1e21; }
+.result-box-black .result-heading { color: #fff; }
+
+.result-name {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.result-roll {
+  margin-bottom: 5px;
+}
+
+.result-effect {
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ======================
+   8. INFO BOXES
+   ====================== */
+
+.info-box {
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid;
+  margin-top: 10px;
+}
+
+.income-box {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+  color: #856404;
+}
+
+.reroll-box {
+  background-color: #e7d4f0;
+  border-color: #9c27b0;
+  color: #4a148c;
+}
+
+.reroll-history-box {
+  background-color: #d4e7f0;
+  border-color: #2196f3;
+  color: #0d47a1;
+}
+
+.warning-box {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+  color: #856404;
+  margin-top: 15px;
+}
+
+.recovery-box {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+  margin-top: 15px;
+}
+
+.glitch-tag {
+  background-color: #ede9fe;
+  border-color: #6a0dad;
+  color: #4c1d95;
+  margin-top: 15px;
+}
+
+.error-box {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+  padding: 20px;
+}
+
+.death-box {
+  background-color: #000;
+  border: 2px solid #000;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  animation: result-pop-in 0.2s ease-out;
+}
+
+.cost-box {
+  background-color: #fff3cd;
+  border: 3px solid #ffc107;
+  border-radius: 8px;
+  color: #856404;
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.cost-box h2 {
+  margin-top: 0;
+  color: #856404;
+}
+
+.cost-box h1 {
+  color: #533f03;
+  margin: 20px 0;
+}
+
+/* ======================
+   9. FORM CONTROLS
+   ====================== */
+
+.selector-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.selector-wrapper .btn {
+  width: auto;
+  flex-shrink: 0;
+}
+
+.selector-wrapper.with-divider {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+.selector-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.select-input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #333;
+  background-color: white;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.select-input-small {
+  padding: 5px;
+  font-size: 16px; /* 16px minimum prevents iOS auto-zoom */
+}
+
+.suit-dialog .skill-dialog-select {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+@keyframes btn-click-flash {
+  0%   { box-shadow: inset 0 0 0 200px rgba(220, 53, 69, 0.65); }
+  100% { box-shadow: inset 0 0 0 200px rgba(220, 53, 69, 0); }
+}
+
+.roll-cogitating {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-style: normal;
+  padding: 48px 48px;
+}
+
+/* ======================
+   10. BUTTONS
+   ====================== */
+
+.btn {
+  padding: 16px 48px;
+  font-size: 18px;
+  border: 2px solid black; /* added this line */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f0c000;
+  color: black;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-clicked {
+  animation: btn-click-flash 1.5s ease-out forwards;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-amber {
+  background-color: #e67e00;
+  color: white;
+  border-color: #b36000;
+}
+
+.btn-amber:hover {
+  background-color: #cf7000;
+}
+
+.btn-chaos {
+  background-color: #9735dc;
+  color: white;
+  border-color: #2a0048;
+}
+
+.btn-chaos:hover {
+  background-color: #5a0b99;
+}
+
+.btn-chaos:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ======================
+   11. MUTATION CHECK
+   ====================== */
+
+.mutation-test-panel {
+  background-color: #1a0a2e;
+  border: 1px solid #6a0dad;
+  border-radius: 6px;
+  padding: 16px;
+  color: #e0d0ff;
+}
+
+.mutation-test-panel h3 {
+  color: #c084fc;
+}
+
+.mutation-test-panel p {
+  color: #c9b8e8;
+}
+
+.mutation-modifiers {
+  margin-bottom: 12px;
+}
+
+.mutation-modifiers .territory-item label {
+  color: #d8b4fe;
+  gap: 8px;
+}
+
+.mutation-roll-result {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.mutation-success {
+  background-color: #3b1a6e;
+  color: #d8b4fe;
+  border-left: 4px solid #a855f7;
+}
+
+.mutation-fail {
+  background-color: #1f1f1f;
+  color: #9ca3af;
+  border-left: 4px solid #4b5563;
+}
+
+.chaos-spawn-note {
+  background-color: #2a0a2a;
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #f3e8ff;
+  font-size: 0.9em;
+}
+
+.glitch-count-note {
+  background-color: #1a2a3a;
+  border-left: 4px solid #6a0dad;
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: #c084fc;
+  font-size: 0.9em;
+  margin-top: 8px;
+}
+
+/* ======================
+   12. LAYOUT UTILITIES
+   ====================== */
+
+.flex-center {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flex-row-center {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.input-flex {
+  flex: 1;
+  min-width: 300px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-muted {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.text-small {
+  font-size: 0.9em;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.scrollable-box {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.mt-5 { margin-top: 5px; }
+.mt-10 { margin-top: 10px; }
+.mt-15 { margin-top: 15px; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+
+.mb-5 { margin-bottom: 5px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-15 { margin-bottom: 15px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-30 { margin-bottom: 30px; }
+
+.ml-10 { margin-left: 10px; }
+
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+
+/* ======================
+   13. NESTED CONTENT
+   ====================== */
+
+.nested-content {
+  margin-top: 15px;
+  padding-left: 15px;
+  border-left: 3px solid #6c757d;
+}
+
+.nested-title {
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.additional-injuries-container {
+  margin-top: 20px;
+}
+
+.additional-injuries-container h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* ======================
+   14. SECTION DIVIDERS
+   ====================== */
+
+.section-divider {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+/* ======================
+   15. TIMER DISPLAY
+   ====================== */
+
+.timer-display {
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  display: block;
+}
+
+.timer-display.hidden {
+  display: none;
+}
+
+.timer-green {
+  color: #28a745;
+}
+
+.timer-grey {
+  color: #6c757d;
+}
+
+.timer-rolls {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #333;
+}
+
+.timer-rolls-prev {
+  color: #999;
+}
+
+/* ======================
+   16. INLINE SVG ICONS
+   ====================== */
+
+svg[xmlns] {
+  display: inline-block;
+  vertical-align: -0.15em;
+}
+
+/* ======================
+   17. TERRITORY CHECKBOXES
+   ====================== */
+
+.territory-level-section {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  column-count: 2;
+  column-gap: 16px;
+}
+
+.territory-item {
+  break-inside: avoid;
+  margin-bottom: 4px;
+}
+
+.territory-item label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 4px;
+}
+
+.territory-item input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.territory-count-input {
+  display: inline-block;
+  width: 50px;
+  margin-left: 4px;
+  padding: 2px 4px;
+  text-align: center;
+  font-size: 0.9em;
+  border: 1px solid #333;
+  background-color: #f5f5f5;
+  color: #000;
+  border-radius: 3px;
+}
+
+.territory-count-input::-webkit-inner-spin-button,
+.territory-count-input::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+/* ======================
+   18. UTILITY CLASSES
+   ====================== */
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.monospace {
+  font-family: monospace;
+}
+
+.table-footnote {
+  font-size: 0.85em;
+  font-style: italic;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+/* ======================
+   19. HR
+   ====================== */
+
+.hr-dark {
+  border-color: #444;
+}
+
+/* ======================
+   20. INLINE TEXT EMPHASIS
+   ====================== */
+
+/*
+  Inline semantic chips for use inside descriptive text.
+  Usage: <span class="text-trigger">When activated</span>
+         <span class="text-restriction">Cannot be used</span>
+         <span class="text-keyword">Seriously Injured</span>
+*/
+
+.text-trigger,
+.text-restriction,
+.text-keyword {
+  display: inline;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 0.9em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Trigger — warm amber; signals a condition that fires an effect */
+.text-trigger {
+  background-color: rgba(230, 126, 0, 0.13);
+  color: #8f4000;
+  border: 1px solid rgba(230, 126, 0, 0.45);
+}
+
+/* Restriction — crimson; signals a prohibition or hard limit */
+.text-restriction {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #8b1a24;
+  border: 1px solid rgba(220, 53, 69, 0.38);
+}
+
+/* Keyword — dark slate; signals a defined game term */
+.text-keyword {
+  background-color: rgba(51, 51, 51, 0.07);
+  color: #222;
+  border: 1px solid rgba(51, 51, 51, 0.28);
+}
+
+/* ======================
+   21. COLLAPSIBLE REFERENCE TABLES
+   ====================== */
+.reference-tables-collapsible > summary {
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.4rem 0;
+  margin: 0.5rem 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+.reference-tables-collapsible > summary::before {
+  content: '▶';
+  font-size: 0.65em;
+  transition: transform 0.2s;
+}
+
+.reference-tables-collapsible[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.reference-tables-collapsible .reference-tables-collapsible {
+  margin-left: 1.25rem;
+  border-left: 2px solid #ccc;
+  padding-left: 0.75rem;
+}
+
+.reference-tables-collapsible .reference-tables-collapsible > summary {
+  font-size: 1.1em;
+}
+
+/* ======================
+   22. RESPONSIVE / MOBILE
+   ====================== */
+
+@media (max-width: 768px) {
+  /* Reduce side padding so content fills the screen */
+  .main {
+    padding: 1rem;
+  }
+
+  /* Horizontally scroll wide tables instead of overflowing */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Weapon profiles table: shrink to fit the screen instead of scrolling */
+  table.weapon-profiles-table {
+    display: table;
+    width: 100%;
+    font-size: 0.7rem;
+  }
+
+  table.weapon-profiles-table th,
+  table.weapon-profiles-table td {
+    padding: 4px 3px;
+    word-break: break-word; /* allows long trait names to wrap */
+  }
+
+  /* Prevent iOS auto-zoom on number inputs */
+  .territory-count-input {
+    font-size: 16px;
+  }
+
+  /* Allow bottom-bar links to wrap on very narrow phones */
+  .bottom-bar {
+    flex-wrap: wrap;
+  }
+}
+

@@ -1,0 +1,28 @@
+---
+layout: default
+title: Fighter Skills
+---
+<!-- 
+  skills.html — Developer reference page for all fighter skills.
+  Renders every skill from fighterSkills.json grouped by category.
+  Scripts: skillsRenderer.
+  Data:    fighterSkills.json.
+-->
+
+<h1>Fighter Skills</h1>
+<p>All skills from <code>fighterSkills.json</code> grouped by category.</p>
+
+<div id="skills-container" class="mt-20"></div>
+
+<script type="module">
+  import { SkillsRenderer } from '{{ "/assets/js/skillsRenderer.js" | relative_url }}';
+  import { fetchJSON } from '{{ "/assets/js/dataLoader.js" | relative_url }}';
+
+  const container = document.getElementById('skills-container');
+  fetchJSON("{{ '/data/fighterSkills.json' | relative_url }}")
+    .then(data => SkillsRenderer.renderSkillsExpanded(data, container))
+    .catch(err => {
+      container.innerHTML = '<div class="error-box">Error loading skills data.</div>';
+      console.error(err);
+    });
+</script>

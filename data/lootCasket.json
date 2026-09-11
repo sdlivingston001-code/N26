@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /data/lootCasket.json
+---
+{{ site.data.lootCasket | jsonify }}

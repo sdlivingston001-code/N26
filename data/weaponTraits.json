@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /data/weaponTraits.json
+---
+{{ site.data.weaponTraits | jsonify }}

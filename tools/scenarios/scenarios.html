@@ -1,0 +1,28 @@
+---
+layout: default
+title: Scenarios
+---
+<!--
+  scenarios.html — Scenario reference viewer.
+  Scripts: scenarioEngine, scenarioUI, dataLoader.
+  Data:    scenarios.json (built from _data/scenarios/*.yml).
+-->
+
+<h1>Scenarios</h1>
+
+<div class="selector-wrapper with-divider">
+  <label class="selector-label" for="scenario-select">Scenario</label>
+  <select id="scenario-select" class="select-input">
+    <option value="">— Select a scenario —</option>
+  </select>
+</div>
+
+<div id="scenario-display" class="mt-20"></div>
+
+<script type="module">
+  import { ScenarioUI } from '{{ "/assets/js/scenarios/scenarioUI.js" | relative_url }}';
+  ScenarioUI.init(
+    "{{ '/data/scenarios/scenarios.json' | relative_url }}",
+    "{{ '/data/scenarios/scenario_defaults.json' | relative_url }}"
+  );
+</script>

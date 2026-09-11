@@ -1,0 +1,102 @@
+# weaponTraits.yml
+#
+# weapon_traits.<TraitName> - One entry per weapon trait (Blaze, Disarm,
+#   Knockback, etc.). `name` is the display heading; `description` is raw
+#   HTML (rendered as-is) explaining the rule, referenced from the
+#   scavenged-weapon table in scenario_MeatForTheGrinder.yml and rendered
+#   as a collapsible reference section by scenario_MeatForTheGrinderUI.js.
+
+weapon_traits:
+  Blaze:
+    name: Blaze
+    description: |
+      <p><b>Blaze:</b> After an attack with the <b>Blaze</b> trait has been resolved, <u>roll 1D6; on a 4+, they become subject to the <b>Blaze condition</b></u>.</p>
+      <p><b>Blaze Condition:</b> When this fighter is activated resolve their activation as follows:</p>
+      <ul>
+        <li>Suffer an immediate <b>S3, AP-1, D1</b> hit.</li>
+        <li>If <b>Prone and Pinned</b> become <b>Standing and Active</b> and follow the <b>Standing and Active</b> step.</li>
+        <li>If <b>Standing and Active</b> move 2D6" in a random direction, then attempt to put the fire out.
+          <ul>
+            <li>Stop moving if you move within 1" of an enemy fighter, or into base contact with impassable terrain.</li>
+            <li>If you move beyond the edge of a level or platform you automatically fall.</li>
+            <li>If you move within 1/2" of an edge of a level or platform test for falling.</li>
+            <li>At the end of this move the fighter may choose to become <b>Prone and Pinned</b>.</li>
+          </ul>
+        </li>
+        <li>If <b>Standing and Engaged</b> or <b>Prone and Seriously Injured</b>, the fighter does not move, and attempts to put the fire out.</li>
+        <li><b>Attempt to put the fire out:</b> Roll 1D6, add 2 if <b>Prone and Pinned</b> or <b>Seriously Injured</b>, on a result of 6 or more the Blaze condition is removed.</li>
+      </ul>
+
+  Disarm:
+    name: Disarm
+    description: |
+      <p><b>Disarm:</b> If the <u>roll to hit = natural 6</u>, the target cannot use any weapons in their <b>Reaction attacks</b> for the remainder of that round (they make unarmed attacks instead).</p>
+
+  Knockback:
+    name: Knockback
+    description: |
+      <p><b>Knockback:</b> If <u>roll to hit >= targets' <b>Strength</b></u>, the target is pushed directly back 1".</p>
+      <ul>
+        <li>If the fighter cannot be moved back 1" without hitting impassable terrain or another model they are moved as far as possible and the attacks' Damage is increased by 1.</li>
+        <li>If any part of the knocked back fighter's base crosses the edge of a platform, make an <b>Initiative test</b>. If this is failed, they will fall. If this is passed, they stop moving at the edge of the platform.</li>
+      </ul>
+
+  Melee:
+    name: Melee
+    description: |
+      <p><b>Melee:</b> This weapon can be used during close combat attacks.</p>
+
+  Parry:
+    name: Parry
+    description: |
+      <p><b>Parry:</b> After an enemy makes successful close combat attacks against this fighter, you can force the attacker to re-roll one successful hit. A fighter armed with two weapons with the Parry trait, can force the attacking player to re-roll two successful hits instead (noting you cannot force a reroll of a reroll).</p>
+
+  Plentiful:
+    name: Plentiful
+    description: |
+      <p><b>Plentiful:</b> Ammunition for this weapon is incredibly common. When making an <b>Ammo check</b> for this weapon, it is automatically passed.</p>
+
+  Power:
+    name: Power
+    description: |
+      <p><b>Power:</b> If the <u>roll to hit = natural 6</u>, no save roll can be made against the attack (except Field armour save rolls) and the Damage caused is increased by 1. Attacks made by a Power weapon cannot be Parried except by other weapons with the Power trait.</p>
+
+  "Rapid Fire":
+    name: Rapid Fire
+    description: |
+      <p><b>Rapid Fire (X):</b> Remember that:</p>
+      <ul>
+        <li>You can assign shots, after the first, onto models within 3" of the original target <u>provided they are no harder to hit than the original target</u>. Be nice &amp; narrative, explain the intention to do this before the dice are rolled.</li>
+        <li>If you miss, resolve a <b>Stray shot</b> for every bullet icon rolled on the <b>Firepower dice</b>.</li>
+        <li>If rolling multiple <b>Firepower die</b>, two or more <b>Ammo check</b> results causes a <b>Jam</b> and that weapon cannot be used for the rest of the battle.</li>
+      </ul>
+
+  Scattershot:
+    name: Scattershot
+    description: |
+      <p><b>Scattershot:</b> Resolve D6 <b>Wound rolls</b> instead of 1.</p>
+
+  Sidearm:
+    name: Sidearm
+    description: |
+      <p><b>Sidearm:</b> This weapon can be used to make ranged attacks, and can also be used in close combat to make a <u>single attack</u>. In close combat, the fighter uses their <b>Weapon Skill</b> and ignores any accuracy modifiers on the weapon.</p>
+
+  Template:
+    name: Template
+    description: |
+      <p><b>Template:</b> Instead of making a hit roll, attacks with this weapon use the <b>Flame template</b>. Any model whose base is within the template — or whose base the template passes over — is automatically hit. Partially covered bases are hit on a 4+ roll.</p>
+
+  Toxin:
+    name: Toxin
+    description: |
+      <p><b>Toxin:</b> Instead of making a <b>Wound roll</b>, roll 1D6; If the result is <u>equal to or higher than the target's <b>Toughness</b>, or is a natural 6</u>, make an <b>Injury roll</b> for them (regardless of their <b>Wounds</b> characteristic).</p>
+
+  Unwieldy:
+    name: Unwieldy
+    description: |
+      <p><b>Unwieldy:</b> Weapons with this trait:</p>
+      <ul>
+        <li><b>Shoot (Basic)</b> is degraded to <b>Shoot (Double)</b>.</li>
+        <li>Unwieldy ranged weapons can <b>never</b> be used with shooting skills (such as <b>Fast Shot</b>, or <b>Hip-Shooting</b>) even if you have suspensors or other mitigants for the <b>Shoot (Double)</b> effect.</li>
+        <li>If the weapon has both the <b>Melee</b> and <b>Unwieldy</b> weapon traits, the fighter cannot use a second close combat weapon.</li>
+      </ul>

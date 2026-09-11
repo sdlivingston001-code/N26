@@ -1,0 +1,479 @@
+# xpTables.yml
+#
+# advancements_userchoice - Static reference table of XP-spend options
+#   (cost, advancement text, ratingIncrease). Rows with a `sides` field
+#   get a "Roll for Skill" button in the UI, linking to a skill table below.
+#
+# advancements_random - The 2D6 random advancement table (`results`), each
+#   entry keyed by an internal ID with `values` (matching roll(s)),
+#   `advancement` text, and `ratingIncrease`.
+#
+# skills.<skillTableName> - One entry per skill table (e.g. skill_agility).
+#   `gang` and `class` classify the table for the skill-roller dialog's
+#   grouping/labels. `sides` is either a number (D6 table, entries keyed
+#   1-6) or "d66" (D66 table, entries live under `results` with a
+#   `values` range). Individual skill entries may include `cost` (credits),
+#   `exotic_beast: true` (usable by Exotic Beast fighters), and
+#   `conditional_special` (extra text shown for certain classes, e.g. Wyrd).
+
+advancements_userchoice:
+  choose_primary_skill:
+    cost: 5
+    advancement: "Select PRIMARY skill."
+    ratingIncrease: 20
+  random_secondary_skill:
+    cost: 5
+    advancement: "Random SECONDARY skill."
+    ratingIncrease: 20
+  choose_secondary_skill:
+    cost: 7
+    advancement: "Select SECONDARY skill."
+    ratingIncrease: 30
+  random_any_skill:
+    cost: 12
+    advancement: "Random non-gang affiliated Skill."
+    ratingIncrease: 30
+  random_legendary_name:
+    cost: 2
+    advancement: "Random Legendary Name (Orlocks only)."
+    ratingIncrease: 5
+  choose_legendary_name:
+    cost: 4
+    advancement: "Select Legendary Name (Orlocks only)."
+    ratingIncrease: 5
+  random_spyrer_power_boost:
+    cost: "4 Kill Count"
+    advancement: "Random Spyrer Suit Evolution."
+    ratingIncrease: "Varies"
+  get_promoted:
+    cost: 5
+    advancement: "If you meet all the special rule criteria on the fighter card, then trigger the fighters' promotion rule!"
+    ratingIncrease: 0
+
+advancements_random:
+  sides: 6
+  count: 2
+  results:
+    become_specialist:
+      values: [2]
+      advancement: "Become a SPECIALIST! Select a PRIMARY skill."
+      ratingIncrease: 20
+    random_secondary_skill:
+      values: [3-5]
+      advancement: "Random SECONDARY skill."
+      ratingIncrease: 20
+    random_primary_skill:
+      values: [6-7]
+      advancement: "Random PRIMARY skill."
+      ratingIncrease: 20
+    choose_primary_skill:
+      values: [8-10]
+      advancement: "Select PRIMARY skill."
+      ratingIncrease: 20
+    choose_secondary_skill:
+      values: [11-12]
+      advancement: "Select SECONDARY skill."
+      ratingIncrease: 30
+
+skills:
+  Agility:
+    gang: unaffiliated
+    1:
+      name: "Catfall"
+      exotic_beast: true
+    2: "Clamber"
+    3:
+      name: "Dodge"
+      exotic_beast: true
+    4: "Mighty Leap"
+    5: "Spring Up"
+    6:
+      name: "Sprint"
+      exotic_beast: true
+  Brawn:
+    gang: unaffiliated
+    1:
+      name: "Bull Charge"
+      exotic_beast: true
+    2: "Bulging Biceps"
+    3:
+      name: "Crushing Blow"
+      exotic_beast: true
+    4: "Headbutt"
+    5: "Hurl"
+    6:
+      name: "Iron Jaw"
+      exotic_beast: true
+  Combat:
+    gang: unaffiliated
+    1: "Combat Master"
+    2:
+      name: "Counter-attack"
+      exotic_beast: true
+    3:
+      name: "Disarm"
+      exotic_beast: true
+    4: "Parry"
+    5: "Rain of Blows"
+    6:
+      name: "Step Aside"
+      exotic_beast: true
+  Cunning:
+    gang: unaffiliated
+    1:
+      name: "Backstab"
+      exotic_beast: true
+    2: "Escape Artist"
+    3:
+      name: "Evade"
+      exotic_beast: true
+    4: "Infiltrate"
+    5:
+      name: "Lie Low"
+      exotic_beast: true
+    6: "Overwatch"
+  Driving:
+    gang: unaffiliated
+    1: "Jink"
+    2: "Expert Driver"
+    3: "Heavy Foot"
+    4: "Slalom"
+    5: "T-bone"
+    6: "Running Repairs"
+  Ferocity:
+    gang: unaffiliated
+    1:
+      name: "Berserker"
+      exotic_beast: true
+    2:
+      name: "Fearsome"
+      exotic_beast: true
+    3: "Impetuous"
+    4:
+      name: "Nerves of Steel"
+      exotic_beast: true
+    5: "True Grit"
+    6: "Unstoppable"
+  Leadership:
+    gang: unaffiliated
+    1: "Commanding Presence"
+    2: "Inspirational"
+    3: "Iron Will"
+    4: "Mentor"
+    5: "Overseer"
+    6: "Regroup"
+  Savant:
+    gang: unaffiliated
+    1: "Ballistics Expert"
+    2: "Connected"
+    3: "Fixer"
+    4: "Medicae"
+    5: "Munitioneer"
+    6: "Savvy Trader"
+  Shooting:
+    gang: unaffiliated
+    1: "Fast Shot"
+    2: "Gunfighter"
+    3: "Hip Shooting"
+    4: "Marksman"
+    5: "Precision Shot"
+    6: "Trick Shot"
+  Piety:
+    gang: cawdor
+    1: "Lord of the Rats"
+    2: "Scavenger's Eye"
+    3: "Blazing Faith"
+    4: "Unshakable Conviction"
+    5: "Devotional Frenzy"
+    6: "Restless Faith"
+  Obfuscation:
+    gang: delaque
+    1: "Faceless"
+    2: "Psi-touched"
+    3: "Take Down"
+    4: "Rumour-monger"
+    5: "Fake Out"
+    6: "Doppelganger"
+  Finesse:
+    gang: escher
+    1: "Acrobatic"
+    2: "Combat Focus"
+    3: "Combat Virtuoso"
+    4: "Hit & Run"
+    5: "Lightning Reflexes"
+    6: "Somersault"
+  Muscle:
+    gang: goliath
+    1: "Fists of Steel"
+    2: "Iron Man"
+    3: "Immovable Stance"
+    4: "Naaargah!"
+    5: "Unleash the Beast"
+    6: "Walk It Off"
+  Bravado:
+    gang: orlock
+    1: "Big Brother"
+    2: "Bring it on!"
+    3: "Guilder Contacts"
+    4: "King Hit"
+    5: "Shotgun Savant"
+    6: "Steady Hands"
+  Tech:
+    gang: van_saar
+    1: "Cold & Calculating"
+    2: "Gadgeteer"
+    3: "Mental Mastery"
+    4: "Photonic Engineer"
+    5: "Rad-phaged"
+    6: "Weaponsmith"
+  Palanite Drill:
+    gang: enforcers
+    1: "Got Your Six"
+    2: "Helmar's Justice"
+    3: "Non-verbal Communication"
+    4: "Restraint Protocols"
+    5: "Team Work"
+    6: "Threat Response"
+  Savagery:
+    gang: corpse_grinder_cult
+    1: "Avatar of Blood"
+    2: "Bloodlust"
+    3: "Crimson Haze"
+    4: "Frenzy"
+    5: "Killing Blow"
+    6: "Slaughterborn"
+  Wastelands:
+    gang: ash_waste_nomads
+    1: "Born of the Wastes"
+    2: "Stormwalker"
+    3: "Eyes of the Wasteland"
+    4: "Beast Handler"
+    5: "Ever Vigilant"
+    6: "Bring it Down"
+  Wisdom of the Ancients:
+    gang: squats
+    1: "Where There's Scrap, There's Creds!"
+    2: "Nobody Pushes Kin Around"
+    3: "Chemical Bonds Never Break"
+    4: "Dependable Like Kin"
+    5: "Stubborn to the Last"
+    6: "There's Always Another Secret"
+  Wyrd (Core Rulebook):
+    gang: unaffiliated
+    class: Psychic
+    1: "Assail (Telekinesis)"
+    2: "Flame Blast (Pyromancy)"
+    3: "Freeze Time (Chronomancy)"
+    4: "Weapon Jinx (Telepathy)"
+    5: "Terrify (Telepathy)"
+    6: "Quickening (Biomancy)"
+  Wyrd (Biomancy):
+    gang: unaffiliated
+    class: Psychic
+    conditional_special: "Fast Healing"
+    1: "Arachnosis"
+    2: "Chameleon"
+    3: "Cause Pain"
+    4: "Stop Bleeding"
+    5: "Quickening"
+    6: "Iron Arm"
+  Wyrd (Chronomancy):
+    gang: unaffiliated
+    class: Psychic
+    conditional_special: "Flicker"
+    1: "Freeze Time"
+    2: "Suppress Power"
+    3: "Zen Shootist"
+    4: "Walk Through Walls"
+    5: "Mirror Image"
+    6: "Lucky Aura"
+  Wyrd (Divination):
+    gang: unaffiliated
+    class: Psychic
+    conditional_special: "Future Sight"
+    1: "Precognition"
+    2: "Foreboding"
+    3: "Misfortune"
+    4: "Forewarning"
+    5: "Warp Whispers"
+    6: "Visions"
+  Wyrd (Pyromancy):
+    gang: unaffiliated
+    class: Psychic
+    conditional_special: "Fire Shield"
+    1: "Body of Flame"
+    2: "Stoke Flames"
+    3: "Wall of Flame"
+    4: "Flame Blast"
+    5: "Molten Bolt"
+    6: "Scouring"
+  Wyrd (Technomancy):
+    gang: unaffiliated
+    class: Psychic
+    conditional_special: "Techno-affinity"
+    1: "Weapon Jinx"
+    2: "Overcharge"
+    3: "Hardening"
+    4: "Manipulate Door"
+    5: "Manipulate Lumens"
+    6: "Crack Lock"
+  Wyrd (Telekinesis):
+    gang: unaffiliated
+    class: Psychic
+    conditional_special: "Fists of Fury"
+    1: "Assail"
+    2: "Crush"
+    3: "Force Field"
+    4: "Hailstorm"
+    5: "Force Blast"
+    6: "Levitation"
+  Wyrd (Telepathy):
+    gang: unaffiliated
+    class: Psychic
+    conditional_special: "Fearful Aura"
+    1: "Mind Control"
+    2: "Terrify"
+    3: "Invisibility"
+    4: "Mental Assault"
+    5: "Hallucinations"
+    6: "Unbreakable Will"
+  Malstrain Wyrd:
+    gang: malstrain
+    class: Psychic    
+    1: "Catalyst"
+    2: "Hypnotic Gaze"
+    3: "The Horror"
+    4: "Leech Essence"
+    5: "Paroxysm"
+    6: "Aura of Despair"
+  Genestealer Cult Wyrd:
+    gang: genestealer_cult
+    class: Psychic    
+    1: "Hypnosis (Telepathy)"
+    2: "Unbreakable Will (Telepathy)"
+    3: "Zealot (Telepathy)"
+    4: "Mind Control (Telepathy)"
+    5: "Assail (Telekinesis)"
+    6: "Force Blast (Telekinesis)"
+  Chaos Cult Wyrd:
+    gang: helot_cultists
+    class: Psychic    
+    1: "Scouring (Pyromancy)"
+    2: "Levitation (Telekinesis)"
+    3: "Warp Strength (Biomancy)"
+    4: "Dark Shield (Telekinesis)"
+    5: "Maddening Visions (Telepathy)"
+    6: "Assail (Telekinesis)"
+  Psychoteric Whispers (Madness):
+    gang: delaque
+    class: Psychic
+    1: "Existential Barrage"
+    2: "Terrible Truths"
+    3: "Psychotic Lure"
+    4: "Cyclopean Gaze"
+    5: "Craven Howl"
+    6: "Unrememberable Utterance"
+  Psychoteric Whispers (Delusion):
+    gang: delaque
+    class: Psychic
+    1: "Spatial Psychosis"
+    2: "Seen Unseen"
+    3: "Ghost and Shadow"
+    4: "Deceitful Thoughts"
+    5: "Suicidal Embrace"
+    6: "Opprobrious Curse"
+  Psychoteric Whispers (Darkness):
+    gang: delaque
+    class: Psychic
+    1: "Cacophony of Silence"
+    2: "Penumbral Mirror"
+    3: "A Perfect Void"
+    4: "Eternal Slumber"
+    5: "Cloak of Whispers"
+    6: "Sight Blight"
+  Legendary Names (Unbelievable Escapes):
+    gang: orlock
+    class: Legendary Name
+    1: "Iron Hard"
+    2: "Bullet Dodger"
+    3: "Badzone Legend"
+    4: "Promethium-proof Killer"
+    5: "Slippery Scummer"
+    6: "Blade Breaker"
+  Legendary Names (Impressive Leadership):
+    gang: orlock
+    class: Legendary Name
+    1: "Bigman"
+    2: "Lucky"
+    3: "Impressive Scars"
+    4: "Too Pretty for Primus"
+    5: "Iron Stare"
+    6: "Rock Steady"
+  Legendary Names (Improbably Beat-Downs):
+    gang: orlock
+    class: Legendary Name
+    1: "One Punch"
+    2: "Bullet Lord"
+    3: "Two-guns"
+    4: "Chancer"
+    5: "Headshot"
+    6: "One Shot"
+  Legendary Names (Incredible Drives):
+    gang: orlock
+    class: Legendary Name
+    1: "Roadkill"
+    2: "Big Rig Boss"
+    3: "Cinderak City Drift"
+    4: "Stunt Driver"
+    5: "Wheels of Pain"
+    6: "Duke of the Road"
+  Outcast Mutations:
+    gang: outcasts
+    sides: d66
+    results:
+      - name: "Void Soul"
+        values: [11-13]
+      - name: "Eye Stalks"
+        values: [14-16]
+      - name: "Extra Appendages"
+        values: [21-23]
+      - name: "Horrific Appearance"
+        values: [24-26]
+      - name: "Massive Claws"
+        values: [31-33]
+      - name: "Needle Spines"
+        values: [34-36]
+      - name: "Scaly Skin"
+        values: [41-43]
+      - name: "Tentacles"
+        values: [44-46]
+      - name: "Toxic Blood"
+        values: [51-53]
+      - name: "Two Heads"
+        values: [54-56]
+      - name: "Vast Bulk"
+        values: [61-63]
+      - name: "Wing Membrances"
+        values: [64-66]
+  Suit Evolution (Spyrer):
+    gang: spyrers
+    sides: d6
+    conditional_special: "If a roll on the Suit Evolution would increase a characteristic beyond its maximum, treat the result as Hunting Rig Augmentation (20 Credits). Note each weapon line is augemented separately (i.e. Orrus augment each ranged weapon separately)."
+    1:
+      name: "Combat Neuroware"
+      cost: 20
+    2:
+      name: "Heightened Reactions"
+      cost: 10
+    3:
+      name: "Improved Motive Power"
+      cost: 10
+    4:
+      name: "Thickened Armour"
+      cost: 15
+    5:
+      name: "Hunting Rig Augmentation"
+      cost: 20
+    6:
+      name: "Hunting Rig Augmentation"
+      cost: 20

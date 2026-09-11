@@ -1,0 +1,49 @@
+# scenario_defaults.yml
+#
+# Canonical display text for common scenario sub-element values.
+#
+# How it works:
+#   Scenario YAML files use short token values (e.g. `setup: standard`).
+#   ScenarioEngine.resolve() looks up the token here and returns the
+#   canonical wording.  If no match is found, the raw value is displayed.
+#
+# Adding new entries here is safe; it does not affect the schema.
+# Adding a new token as a valid enum value requires updating the schema too.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BATTLEFIELD
+# ─────────────────────────────────────────────────────────────────────────────
+battlefield:
+  setup:
+    standard: "Uses the standard rules for setting up a battlefield."
+    zone_mortalis: "Uses Zone Mortalis terrain rules. Players alternate placing tiles, then set up doors, barricades and other terrain features."
+    ash_wastes: "Uses Ash Wastes terrain rules."
+    sector_mechanicus: "Uses Sector Mechanicus terrain rules."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CREWS
+# ─────────────────────────────────────────────────────────────────────────────
+crews:
+  # Fixed text block inserted when reinforcements_deck: true
+  reinforcements_deck_note: >-
+    The rest of each gang's Fighter cards are shuffled together to form the
+    <span class="text-keyword">Reinforcements</span> decks.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GANG TACTICS
+# ─────────────────────────────────────────────────────────────────────────────
+gang_tactics:
+  default:
+    none: "No tactics are drawn at the start of the battle."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DEPLOYMENT (reference only — not resolved by engine, documents valid ids)
+# ─────────────────────────────────────────────────────────────────────────────
+# deployment:
+#   (deployment steps are scenario-specific; no standard tokens defined)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ENDING
+# ─────────────────────────────────────────────────────────────────────────────
+# ending:
+#   (conditions are scenario-specific; no standard tokens defined)
