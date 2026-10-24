@@ -1,0 +1,131 @@
+# weaponProfiles.yml
+#
+# weapon_profiles.<weaponId>.profiles.<profileId> - Selectable ranged weapon
+#   presets for the Shooting Sequence tool (tools/shooting.html). Each
+#   weapon groups one or more profiles (different ammo types), matching the
+#   pattern used by scenario_MeatForTheGrinder.yml.
+#
+# Profile fields:
+#   name         - Display name shown in the weapon-profile selector.
+#   category     - Weapon category (e.g., Auto/Stub, Bolt, Flamer).
+#   short_range, long_range  - Short/Long range in inches. short_range: 0 + long_range: 0 typically indicates the weapon will have the "Template" trait instead of range bands.
+#   strength     - Strength characteristic, used for the Wound roll.
+#   ap           - Armour Piercing modifier applied to the target's Save roll (negative values make the Save harder).
+#   lethality    - Number of Injury dice rolled when this weapon takes a model's Wounds to zero.
+#   traits       - Array of weapon-trait names (cross-referenced against weaponTraits.yml). "Rapid Fire(X)" includes its X value inline so the engine can parse it directly.
+#   credits      - Cost of weapon in credits.
+#   trade_points - Number of Trade Points to be spent in addition to the credit cost.
+
+schema:
+  weapon:
+    name: string
+    category: string
+    short_range: integer
+    long_range: integer
+    strength: integer
+    ap: integer
+    lethality: integer
+    traits:
+      - string
+    credits: integer
+    trade_points: integer
+
+weapons:
+  - name: Autogun
+    category: Auto/Stub
+    short_range: 8
+    long_range: 24
+    strength: 3
+    ap: 0
+    lethality: 1
+    traits: ["Rapid Fire(1)"]
+    credits: 20
+    trade_points: 0
+
+  - name: Autopistol
+    category: Auto/Stub
+    short_range: 4
+    long_range: 12
+    strength: 3
+    ap: 0
+    lethality: 1
+    traits: ["Light", "Rapid Fire(1)"]
+    credits: 10
+    trade_points: 0
+
+  - name: Heavy Stubber
+    category: Auto/Stub
+    short_range: 20
+    long_range: 40
+    strength: 4
+    ap: -1
+    lethality: 1
+    traits: ["Rapid Fire(2)", "Heavy"]
+    credits: 70
+    trade_points: 2
+
+  - name: Stub Gun
+    category: Auto/Stub
+    short_range: 6
+    long_range: 12
+    strength: 3
+    ap: 0
+    lethality: 1
+    traits: ["Light"]
+    credits: 5
+    trade_points: 0
+
+  - name: Boltgun
+    category: Bolt
+    short_range: 12
+    long_range: 24
+    strength: 4
+    ap: -1
+    lethality: 2
+    traits: ["Rapid Fire(1)", "Ammo(3+)"]
+    credits: 55
+    trade_points: 2
+
+  - name: Bolt Pistol
+    category: Bolt
+    short_range: 6
+    long_range: 12
+    strength: 4
+    ap: -1
+    lethality: 2
+    traits: ["Light", "Rapid Fire(1)", "Ammo(3+)"]
+    credits: 45
+    trade_points: 1
+
+  - name: Heavy Bolter
+    category: Bolt
+    short_range: 18
+    long_range: 36
+    strength: 5
+    ap: -2
+    lethality: 2
+    traits: ["Rapid Fire(2)", "Heavy", "Ammo(3+)"]
+    credits: 100
+    trade_points: 3
+
+  - name: Flamer
+    category: Flamer
+    short_range: 0
+    long_range: 0
+    strength: 4
+    ap: -1
+    lethality: 1
+    traits: ["Blaze(5+)", "Template", "Ammo(6+)"]
+    credits: 70
+    trade_points: 1
+
+  - name: Hand Flamer
+    category: Flamer
+    short_range: 0
+    long_range: 0
+    strength: 3
+    ap: 0
+    lethality: 1
+    traits: ["Blaze(5+)", "Template", "Ammo(6+)", "Light"]
+    credits: 45
+    trade_points: 1

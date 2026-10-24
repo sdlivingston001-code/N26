@@ -1,0 +1,145 @@
+---
+layout: default
+title: Shooting Sequence
+---
+<!--
+  shooting.html — Shooting sequence roller (Declare the Shot, Measure
+  Range, Make the Hit Roll, Resolve Hits), with selectable weapon
+  profiles, and cover/Rapid Fire modifiers.
+  Scripts: dice, icons, timer, shootingEngine, shootingUI.
+  Data:    weaponProfiles.json, weaponTraits.json.
+-->
+
+<h1>Shooting Sequence</h1>
+<p>Resolve a ranged attack step by step: Declare the Shot &rarr; Measure Range &rarr; Make the Hit Roll &rarr; Resolve Hits.</p>
+
+<hr class="hr-dark" style="margin: 30px 0;">
+
+<h2>1. Declare the Shot</h2>
+<p>Choose a ranged weapon profile the attacking model is equipped with.</p>
+<div class="selector-wrapper">
+  <label class="selector-label" for="sh-weapon-preset">Weapon Profile:</label>
+  <select id="sh-weapon-preset" class="select-input"></select>
+</div>
+
+<div id="sh-weapon-stats" class="mt-15"></div>
+
+<h2>2. Measure Range</h2>
+<p>Choose whether the target is at Short or Long range for this weapon.</p>
+<div class="selector-wrapper">
+  <label class="selector-label" for="sh-range-band">Range:</label>
+  <select id="sh-range-band" class="select-input">
+    <option value="short">Short Range</option>
+    <option value="long">Long Range</option>
+  </select>
+</div>
+<div class="selector-wrapper">
+  <label class="checkbox-label"><input type="checkbox" id="sh-target-cover"> Target is in <b>Cover</b></label>
+</div>
+<div id="sh-range-result" class="mt-10"></div>
+
+<h2>3. Make the Hit Roll</h2>
+<p>A natural 1 always misses; a natural 6 always hits &mdash; regardless of modifiers.</p>
+<div class="selector-wrapper">
+  <label class="selector-label" for="sh-bs">Attacker Ballistic Skill:</label>
+  <input type="number" id="sh-bs" class="number-input" min="2" max="6" value="4" style="width:3.5rem;">
+  <span class="text-small text-muted" style="margin-left:6px;">(e.g. 4 for BS 4+)</span>
+</div>
+<div id="sh-rapidfire-wrap" class="selector-wrapper" style="display:none;">
+  <label class="selector-label" for="sh-firepower-count">Firepower Dice to Roll (Rapid Fire):</label>
+  <input type="number" id="sh-firepower-count" class="number-input" min="0" value="1" style="width:3.5rem;">
+  <span class="text-small text-muted" style="margin-left:6px;">(0 = single shot, no Firepower dice)</span>
+</div>
+<div class="selector-wrapper">
+  <label class="checkbox-label"><input type="checkbox" id="sh-arbitrator-stray"> Arbitrator's Toolkit: resolve <b>Stray Shots</b> on a miss</label>
+</div>
+
+<button id="sh-roll-hit">Roll to Hit</button>
+
+<div id="sh-hit-results" class="mt-15"></div>
+
+<h2>4. Resolve Hits</h2>
+<h3>A. Make a Wound Roll</h3>
+<div class="selector-wrapper">
+  <label class="selector-label" for="sh-toughness">Target Toughness:</label>
+  <input type="number" id="sh-toughness" class="number-input" min="1" value="3" style="width:3.5rem;">
+</div>
+<button id="sh-roll-wound">Roll to Wound</button>
+<div id="sh-wound-results" class="mt-15"></div>
+
+<h3>B. Make a Save Roll</h3>
+<div class="selector-wrapper">
+  <label class="selector-label" for="sh-save">Save characteristic:</label>
+  <input type="number" id="sh-save" class="number-input" min="2" max="6" style="width:3.5rem;">
+</div>
+<div class="selector-wrapper" style="flex-direction:column; align-items:flex-start; gap:0.4rem;">
+  <label class="checkbox-label"><input type="checkbox" id="sh-invuln-check"> Use <b>Invulnerable</b> save instead (ignores AP &amp; Cover)</label>
+  <label class="checkbox-label">Invulnerable Save: <input type="number" id="sh-invuln-value" class="number-input" min="2" max="6" value="5" style="width:3.5rem;" disabled></label>
+  <label class="checkbox-label"><input type="checkbox" id="sh-no-save"> <b>No Save</b> allowed (e.g. Gas trait)</label>
+</div>
+<button id="sh-roll-save">Roll Save</button>
+<div id="sh-save-results" class="mt-15"></div>
+
+<h3>C. Inflict Damage</h3>
+<div class="selector-wrapper">
+  <label class="selector-label" for="sh-wounds-remaining">Target Wounds Remaining:</label>
+  <input type="number" id="sh-wounds-remaining" class="number-input" min="0" value="1" style="width:3.5rem;">
+</div>
+<button id="sh-inflict-damage">Inflict Damage</button>
+<div id="sh-damage-results" class="mt-15"></div>
+<div id="sh-injury-results"></div>
+
+<hr class="hr-dark" style="margin: 30px 0;">
+
+<h3>Nerve Check</h3>
+<p>If a model is within 3" of a friendly model that goes Out of Action, they must make a Cool check or become Suppressed.</p>
+<div class="selector-wrapper">
+  <label class="selector-label" for="sh-cool">Cool:</label>
+  <input type="number" id="sh-cool" class="number-input" min="2" max="9" value="7" style="width:3.5rem;">
+  <span class="text-small text-muted" style="margin-left:6px;">(e.g. 7 for Cool 7+)</span>
+</div>
+<button id="sh-roll-nerve">Roll Cool Check</button>
+<div id="sh-nerve-results" class="mt-15"></div>
+
+<hr class="hr-dark" style="margin: 40px 0;">
+
+<details class="reference-tables-collapsible">
+  <summary>Arbitrator's Toolkit</summary>
+  <ul>
+    <li><b>Stray Shots:</b> If the attack misses, roll a D6 for each model within 1" of the line along which range was measured, starting with the model closest to the attacker. On a 1, 2, or 3 that model is Hit; on a 4, 5, or 6 the shot misses them and you move to the next model at risk.</li>
+    <li><b>Target Priority:</b> If the closest model in Line of Sight is within 12" and is not Engaged or Seriously Injured/Damaged, they must be the target of any ranged attack unless the attacking model passes a Cool check.</li>
+    <li><b>Walking Fire:</b> If a Rapid Fire weapon scores more than one Hit, the Hits can be split between multiple targets. The first must be allocated to the original target; the remainder can go to other enemy models within 3" of the first who are also within range and Line of Sight. Allocate all Hits before making any Wound rolls.</li>
+  </ul>
+</details>
+
+<details class="reference-tables-collapsible">
+  <summary>Wound Roll Table</summary>
+  <table>
+    <thead><tr><th>Strength vs Toughness</th><th>D6 Roll Required</th></tr></thead>
+    <tbody>
+      <tr><td>Strength is TWICE Toughness or greater</td><td>2+</td></tr>
+      <tr><td>Strength is GREATER than Toughness</td><td>3+</td></tr>
+      <tr><td>Strength is EQUAL to Toughness</td><td>4+</td></tr>
+      <tr><td>Strength is LOWER than Toughness</td><td>5+</td></tr>
+      <tr><td>Strength is HALF Toughness or lower</td><td>6+</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details class="reference-tables-collapsible">
+  <summary>Weapon Traits</summary>
+  <div id="sh-weapon-traits-container"></div>
+</details>
+
+<details class="reference-tables-collapsible">
+  <summary>Weapon Profiles</summary>
+  <div id="sh-weapon-table-container" class="mt-20"></div>
+</details>
+
+<script type="module">
+  import { ShootingUI } from '{{ "/assets/js/shootingUI.js" | relative_url }}';
+  ShootingUI.init(
+    "{{ '/data/weaponProfiles.json' | relative_url }}",
+    "{{ '/data/weaponTraits.json' | relative_url }}"
+  );
+</script>

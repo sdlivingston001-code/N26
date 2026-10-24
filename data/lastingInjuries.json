@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/lastingInjuries.json
----
-{{ site.data.lastingInjuries | jsonify }}

@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/gangs.json
----
-{{ site.data.gangs | jsonify }}

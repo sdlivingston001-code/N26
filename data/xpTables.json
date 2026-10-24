@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/xpTables.json
----
-{{ site.data.xpTables | jsonify }}

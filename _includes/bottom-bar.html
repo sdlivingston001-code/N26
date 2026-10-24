@@ -12,14 +12,10 @@
   <div id="page-roll-info"></div>
   <div class="bottom-bar">
     <a id="bottom-bar-home" href="{{ '/' | relative_url }}"></a>
-    <a id="bottom-bar-income" href="{{ '/tools/territory.html' | relative_url }}"></a>
-    <a id="bottom-bar-injuries" href="{{ '/tools/lastingInjuries.html' | relative_url }}"></a>
-    <a id="bottom-bar-loot" href="{{ '/tools/lootCasket.html' | relative_url }}"></a>
-    <a id="bottom-bar-xp" href="{{ '/tools/xpTables.html' | relative_url }}"></a>
-    <a id="bottom-bar-sotw" href="{{ '/tools/scenarios/scenario_MeatForTheGrinder.html' | relative_url }}"></a>
+    <a id="bottom-bar-shooting" href="{{ '/tools/shooting.html' | relative_url }}"></a>
     <script type="module">
       import { Icons } from '{{ "/assets/js/icons.js" | relative_url }}';
-      const map = { home: 'houseLine', income: 'moneyWavy', injuries: 'firstAid', loot: 'treasureChest', xp: 'militaryMedal', sotw: 'clipboardList' };
+      const map = { home: 'houseLine', shooting: 'dices' };
       for (const [id, icon] of Object.entries(map)) {
         document.getElementById('bottom-bar-' + id).innerHTML = Icons[icon];
       }

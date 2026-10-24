@@ -9,13 +9,7 @@ Built with **Jekyll 4** and vanilla JavaScript; hosted on **GitHub Pages**.
 
 | Tool | Page | Description |
 |------|------|-------------|
-| **Territory Income** | `tools/territory.html` | Resolve territory boons, income, random recruits, and deck-based income with gang-specific overrides. |
-| **Lasting Injuries** | `tools/lastingInjuries.html` | Roll D66 / D6 injuries across 5 modes (house rules, core, ironman, Spyrer glitches) plus rogue-doc treatment and Chaos mutations. |
-| **Loot Caskets** | `tools/lootCasket.html` | Smash or bypass loot caskets; handles nested sub-tables and card-suit draws. |
-| **XP Advancements** | `tools/xpTables.html` | User-choice promotions and 2D6 random advancement rolls with full skill roller. |
-| **Post-Battle Sequence** | `tools/post-battle.html` | Guided workflow: succumb, escape, ransom, critical-injury treatment, and a step checklist. |
-| **Meat for the Grinder** | `tools/scenarios/scenario_MeatForTheGrinder.html` | Scavenged weapon roller, weapon-profile tables, fighter skills, and weapon traits for the scenario. |
-| **Campaign Viewer** | `tools/campaignViewer.html` | Live read-only viewer for Munda Manager campaigns (fetched via CORS proxy, cached in localStorage). |
+| **Shooting Sequence** | `tools/shooting.html` | Step-by-step ranged-attack roller: selectable weapon profiles/traits and armour/cover presets, Hit → Wound → Save → Damage → Injury dice, ammo/Rapid Fire tracking, Nerve checks. |
 | **Icon Dictionary** | `tools/icons.html` | Developer reference grid of all Phosphor icons used in the app. |
 
 ---
@@ -36,7 +30,8 @@ Shared modules used across tools:
 | `dice.js` | Core dice rolling (`d6`, `2d6`, `d66`, card-draw), shared `isInRange()` utility. |
 | `timer.js` | Per-page roll timer with 4-deep history, persisted in `localStorage`. |
 | `icons.js` | ~31 inline SVG icons (Phosphor Bold); all use `currentColor` for CSS inheritance. |
-| `injuryRenderer.js` | Shared result-box rendering for injury/treatment outcomes. |
+| `dataLoader.js` | `fetchJSON()` helper — cache-busted `fetch()` wrapper for `data/*.json`. |
+| `uiUtils.js` | `animatedReplace()`/`delay()` helpers for result-box transitions. |
 | `main.js` | Auto-applies `.btn` class to `<button>` elements and wires up collapsible click-to-close. |
 
 ### Data flow
@@ -71,8 +66,7 @@ The site will be available at `http://localhost:4000/BadCredit/`.
 _config.yml              Jekyll configuration (baseurl, collections, plugins)
 _layouts/default.html    Master HTML layout (head, body wrapper, bottom-bar)
 _includes/bottom-bar.html  Sticky icon navigation bar
-_data/                   YAML source data (territories, injuries, loot, etc.)
-_pages/                  Markdown content pages (advancements, pre-battle)
+_data/                   YAML source data (weapon profiles, armour saves, weapon traits)
 assets/
   css/style.css          Master stylesheet (22 numbered sections)
   js/                    All JavaScript modules (engine/UI pairs + shared)
@@ -88,7 +82,7 @@ All `<script>` and `<link>` tags in the layout append `?v={{ site.time | date: '
 ### Documentation conventions
 
 - **JavaScript** — All Engine and UI modules use JSDoc: a file-level header block (description, key behaviors, `Depends on:`) plus per-method `@param`/`@returns` blocks. Follow this style for any new module or method.
-- **YAML data** — Files under `_data/` (e.g. `territories.yml`, `gangs.yml`, `xpTables.yml`, `weaponTraits.yml`, `fighterSkills.yml`, `_data/scenarios/*.yml`) have a header comment describing their schema/structure — read that first when adding or changing entries.
+- **YAML data** — Files under `_data/` (e.g. `weaponProfiles.yml`, `armourSaves.yml`, `weaponTraits.yml`) have a header comment describing their schema/structure — read that first when adding or changing entries.
 
 ### Known limitations
 
@@ -103,4 +97,3 @@ All `<script>` and `<link>` tags in the layout append `?v={{ site.time | date: '
 - **Vanilla JavaScript (ES6+)** — No frameworks or build tools
 - **GitHub Pages** — Hosting and deployment
 - **Phosphor Icons** — Inline SVG icon set
-- **Munda Manager API** — External campaign data (Campaign Viewer only)

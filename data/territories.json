@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/territories.json
----
-{{ site.data.territories | jsonify }}
