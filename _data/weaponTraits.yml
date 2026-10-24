@@ -3,26 +3,238 @@
 # weapon_traits.<TraitName> - One entry per weapon trait (Blaze, Disarm,
 #   Knockback, etc.). `name` is the display heading; `description` is raw
 #   HTML (rendered as-is) explaining the rule, referenced from the
-#   scavenged-weapon table in scenario_MeatForTheGrinder.yml and rendered
-#   as a collapsible reference section by scenario_MeatForTheGrinderUI.js.
+#   scavenged-weapon table in scenario_MeatForTheGrinder.yml, the Shooting
+#   Sequence tool, and the Rule Summary page's Weapon Trait Reference Table.
+#   Entries are listed alphabetically, matching the full trait list from
+#   the Necromunda 2026 Quick Reference Sheet (v1.3).
 
 weapon_traits:
+  Additional_Attacks:
+    name: Additional Attacks
+    description: |
+      <p><b>Additional Attacks (X):</b> Grants X additional attacks in close combat. Can only be used during the model's own activation, and cannot be combined with a weapon designated as Primary or Secondary.</p>
+
   Ammo:
     name: Ammo
     description: |
       <p><b>Ammo (X+):</b> After an attack with this weapon is resolved, roll 1D6; <u>if the result is below X</u> the weapon runs <b>Out of Ammo</b> and cannot be used again until a <b>Reload</b> action is performed. If this weapon also has the <b>Rapid Fire (X)</b> trait, this check is not made separately &mdash; instead the weapon is considered to have rolled <u>one additional ammo symbol</u> when resolving its Firepower dice.</p>
 
+  Arc:
+    name: Arc
+    description: |
+      <p><b>Arc (X):</b> The weapon's field of fire is limited to X.</p>
+
+  Assault:
+    name: Assault
+    description: |
+      <p><b>Assault:</b> The model may make a free Shoot action immediately after a Dash action.</p>
+
+  Auxiliary:
+    name: Auxiliary
+    description: |
+      <p><b>Auxiliary:</b> Must be attached to another weapon, and does not take up one of the model's three weapon slots.</p>
+
+  Backstab:
+    name: Backstab
+    description: |
+      <p><b>Backstab:</b> +1 Strength if the target is Engaged with more than one model.</p>
+
+  Blast:
+    name: Blast
+    description: |
+      <p><b>Blast (3"/5"):</b> Can only target fighters, not empty space. If the attack hits, every model under the template &mdash; even partially &mdash; is hit. If it misses, roll a D6" and a scatter die for direction; if a "hit" is rolled along with a 1 for distance, the blast detonates on the firer instead. (Combined with Rapid Fire: subsequent blasts scatter from the final location of the first.)</p>
+
   Blaze:
     name: Blaze
     description: |
-      <p><b>Blaze (X+):</b> If the wound roll is at least X then resolve an additional hit (which cannot proc additional hits).</p>
+      <p><b>Blaze (X+):</b> If the wound roll is at least X then resolve an additional hit with the same profile as the first (this cannot proc a second time).</p>
+
+  Breaching:
+    name: Breaching
+    description: |
+      <p><b>Breaching (X+):</b> A wound roll of X or more means no armour save of any kind is allowed.</p>
+
+  Combi:
+    name: Combi
+    description: |
+      <p><b>Combi:</b> The firer may choose which profile to use, or fire both profiles at the same target with a -1 to hit modifier; hits from both profiles are resolved simultaneously.</p>
+
+  Concussive:
+    name: Concussive
+    description: |
+      <p><b>Concussive (X+):</b> A wound roll of X or more means the target suffers -1 Initiative until the end of its next activation.</p>
+
+  Cursed:
+    name: Cursed
+    description: |
+      <p><b>Cursed:</b> Upon being hit, the target must pass a Willpower check or suffer the Insanity condition.</p>
+
+  Damage:
+    name: Damage
+    description: |
+      <p><b>Damage (X):</b> The target loses X wounds rather than 1 when hit. Injury dice rolled are still based on the weapon's Lethality.</p>
+
+  Drag:
+    name: Drag
+    description: |
+      <p><b>Drag:</b> If the target is not taken Out of Action, roll a D6; if the result is equal to or greater than the target's Strength, it is moved D3" towards the firer.</p>
+
+  Flash:
+    name: Flash
+    description: |
+      <p><b>Flash:</b> If hit, the target makes an Initiative check; if failed, it gains the Blind condition &mdash; losing its ready marker, or not gaining one next round. Until it next activates, it only hits in close combat on a 6+.</p>
+
+  Gas:
+    name: Gas
+    description: |
+      <p><b>Gas:</b> No armour saves are allowed; a respirator grants a 5+ invulnerable save instead.</p>
+
+  Graviton_Pulse:
+    name: Graviton Pulse
+    description: |
+      <p><b>Graviton Pulse:</b> Instead of a wound roll, the target makes a Strength check; if failed, no armour saves are allowed. The resulting blast remains as difficult terrain &mdash; roll a D6" during the Reinforcements step each End phase, persisting into the next round on a 5+.</p>
+
+  Heavy:
+    name: Heavy
+    description: |
+      <p><b>Heavy:</b> A ranged weapon with this trait can only be fired using a Braced Shot action. A melee weapon with this trait is always the Primary weapon and prevents the use of a Secondary weapon.</p>
+
+  Independent:
+    name: Independent
+    description: |
+      <p><b>Independent:</b> Fires automatically at BS 4+ whenever the bearer fires (potentially at a different target), but does not benefit from Aimed Shot, skills, or equipment bonuses.</p>
+
+  Knockback:
+    name: Knockback
+    description: |
+      <p><b>Knockback (X):</b> If the hit roll is X or more, the target is moved 1" directly away from the attacker (away from the centre, for a Blast attack).</p>
+
+  Lance:
+    name: Lance
+    description: |
+      <p><b>Lance:</b> +1 Strength if used by a mounted fighter that charged this activation.</p>
+
+  Lance_Bomb:
+    name: Lance Bomb
+    description: |
+      <p><b>Lance Bomb:</b> The first hit uses the weapon's primed profile; subsequent hits use its spent profile.</p>
+
+  Light:
+    name: Light
+    description: |
+      <p><b>Light:</b> One attack with this weapon can be made in close combat as either the Primary or Secondary weapon. If also Template, this instead resolves as a single automatic hit.</p>
+
+  Limited:
+    name: Limited
+    description: |
+      <p><b>Limited:</b> Once Out of Ammo, this weapon cannot be reloaded.</p>
+
+  Melee:
+    name: Melee
+    description: |
+      <p><b>Melee:</b> Used to make attacks only while Engaged.</p>
+
+  Paired:
+    name: Paired
+    description: |
+      <p><b>Paired (X):</b> Primary weapon only; cannot be used alongside a Secondary weapon. Grants +X attacks.</p>
+
+  Parry:
+    name: Parry
+    description: |
+      <p><b>Parry:</b> When used as the Primary or Secondary weapon in close combat, grants +1 Save (does not stack with other Parry weapons).</p>
+
+  Power_Pack:
+    name: Power Pack
+    description: |
+      <p><b>Power Pack:</b> Does not count towards the model's maximum weapon count.</p>
+
+  Rad_Phage:
+    name: Rad-Phage
+    description: |
+      <p><b>Rad-Phage:</b> An unsaved wound inflicts the Rad-poisoned condition (-1 Toughness).</p>
+
+  Ram:
+    name: Ram
+    description: |
+      <p><b>Ram:</b> Can only be used after this model has charged.</p>
 
   Rapid_Fire:
     name: Rapid Fire
     description: |
-      <p><b>Rapid Fire (X):</b> Roll the firepower dice to determine how many hits this weapon scores.</p>
+      <p><b>Rapid Fire (X):</b> The firer may roll up to X firepower dice when shooting, resolving a number of hits equal to the bullet-hole symbols rolled. Rolling an ammo symbol causes Out of Ammo after hits are resolved; rolling more than one ammo symbol (or one ammo symbol plus a failed Ammo (X) roll) jams the weapon until it is repaired. (Combined with Light: single shot only in combat, no firepower dice used. Combined with Template: only the closest enemy is hit multiple times.)</p>
+
+  Reckless:
+    name: Reckless
+    description: |
+      <p><b>Reckless:</b> Hard to aim &mdash; may hit another model. When shooting, before rolling to hit, randomly allocate the target between all friendly and enemy models within 6" of the intended target, in range and line of sight. In melee, attacks are instead randomly allocated between all models Engaged with the attacker.</p>
+
+  Reliable:
+    name: Reliable
+    description: |
+      <p><b>Reliable:</b> Ignores the first Out of Ammo result rolled on firepower dice each round.</p>
+
+  Rending:
+    name: Rending
+    description: |
+      <p><b>Rending (X+):</b> A wound roll of X or more grants +1 Armour Piercing.</p>
+
+  Scarce:
+    name: Scarce
+    description: |
+      <p><b>Scarce (X+):</b> Reloading is not automatic &mdash; roll X or more on a D6 to successfully reload.</p>
+
+  Shield:
+    name: Shield
+    description: |
+      <p><b>Shield:</b> +1 Save against shooting attacks.</p>
+
+  Shock:
+    name: Shock
+    description: |
+      <p><b>Shock (X+):</b> A hit roll of X or more automatically wounds (counts as a natural 6 for the purposes of other traits).</p>
+
+  Shred:
+    name: Shred
+    description: |
+      <p><b>Shred (X+):</b> A wound roll of X or more grants +1 Lethality.</p>
+
+  Single_Shot:
+    name: Single Shot
+    description: |
+      <p><b>Single Shot:</b> Can be used once per game, and cannot be reloaded.</p>
+
+  Smoke:
+    name: Smoke
+    description: |
+      <p><b>Smoke:</b> Can target any point on the battlefield and blocks line of sight; does not Suppress if it hits a model. Roll a D6" during the Reinforcements step each End phase; the smoke persists for another round on a 5+.</p>
 
   Template:
     name: Template
     description: |
-      <p><b>Template:</b> Instead of making a hit roll, attacks with this weapon use the <b>Flame template</b>. Any model whose base is within the template — or whose base the template passes over — is automatically hit. Partially covered bases are hit on a 4+ roll.</p>
+      <p><b>Template:</b> Every model under the template, even partially, is automatically hit. (Combined with Light: a single enemy suffers 1 automatic hit when used in combat. Combined with Rapid Fire: only the closest enemy is hit multiple times.)</p>
+
+  Toxin:
+    name: Toxin
+    description: |
+      <p><b>Toxin (X+):</b> Wounds on a roll of X or more, without needing to compare Strength and Toughness. Vehicles can only be wounded on a natural 6.</p>
+
+  Twin_Linked:
+    name: Twin-linked
+    description: |
+      <p><b>Twin-linked:</b> Firepower dice may be re-rolled (if more than one is rolled, all must be re-rolled together).</p>
+
+  Unstable:
+    name: Unstable
+    description: |
+      <p><b>Unstable:</b> On a natural 1 to hit, the weapon automatically hits with its own profile. For weapons that don't make a hit roll (e.g. Template weapons), roll a D6 instead to determine if this triggers.</p>
+
+  Unwieldy:
+    name: Unwieldy
+    description: |
+      <p><b>Unwieldy:</b> When used in close combat, Initiative is treated as 1 before modifiers.</p>
+
+  Web:
+    name: Web
+    description: |
+      <p><b>Web:</b> No armour saves are allowed, only invulnerable saves. A model that is wounded becomes Webbed (see Conditions).</p>

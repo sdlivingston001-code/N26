@@ -1,0 +1,178 @@
+# modelSubtypes.yml
+#
+# model_subtypes.<Group>.subtypes.<SubtypeName> - Fighter and Vehicle
+#   Subtypes, grouped into two top-level groups (Fighter, Vehicle) matching
+#   the Rule Summary page's Model section (tools/rules.html). `name` is the
+#   display heading for the group/subtype; `description` is raw HTML
+#   (rendered as-is) explaining the rule. Rendered as a nested collapsible
+#   reference section (group > subtype) by rulesUI.js.
+
+model_subtypes:
+  Fighter:
+    name: Fighter Subtypes
+    description: |
+      <p>All Fighters have a Subtype that dictates their position within a gang and which Post-cycle Actions they may perform. Fighters may also have multiple different Subtypes applied to them. For example, a Cawdor Sheen Bird is a Fighter (Beast, Flying, Pet), meaning that they are a Fighter that is subject to the rules of the Beast, Flying and Pet Subtypes.</p>
+    subtypes:
+      Beast:
+        name: Beast
+        description: |
+          <p>A Beast is an animal that can only perform limited actions. Unless stated otherwise, a Beast may not perform the following actions:</p>
+          <ul>
+            <li>Interact</li>
+            <li>Treat Ally</li>
+          </ul>
+          <p>Additionally, a Beast may not assist a model making a Recovery test, and a gang cannot use the Leadership characteristic of a Beast for Bottle checks unless every friendly model on the battlefield is a Beast.</p>
+
+      Brute:
+        name: Brute
+        description: |
+          <p>All Brutes have the Juggernaut skill. When a Brute is removed from the Gang Roster, all weapons and wargear they are equipped with are deleted instead of going into the gang's Stash.</p>
+
+      Champion:
+        name: Champion
+        description: |
+          <p>Friendly models within 6" and in Line of Sight of a Champion may use the Champion's Cool characteristic for Nerve checks.</p>
+          <p>All Champions have the Inspiring skill.</p>
+
+      Flying:
+        name: Flying
+        description: |
+          <p>A Flying Fighter may move between levels without needing to climb a wall or ladder by measuring a straight line between their starting and final positions. They may move over terrain and other Fighters in this manner, though they still need to move up and over the terrain. Additionally, whenever they fall, they are not Suppressed and never take any damage. They may not, however, ignore impassable terrain and may not end their movement with their base overlapping an obstacle or another Fighter's base.</p>
+
+      Ganger:
+        name: Ganger
+        description: |
+          <p>If during the Post-cycle Sequence a Ganger should reach at least 37 XP, they are promoted to a Champion. After rolling to determine an Advancement, they replace the Ganger Subtype with the Champion Subtype, keeping all their other existing Subtypes. From that point onwards they are treated as a Champion of the appropriate gang. This does not cause them to change their Fighter entry &mdash; if an Escher Gang Sister becomes promoted to a Champion she remains an Escher Gang Sister, she does not become an Escher Death Maiden or Escher Matriarch.</p>
+
+      Hanger_on:
+        name: Hanger-on
+        description: |
+          <p>When selecting a gang's starting crew and creating their Reinforcements deck, Hangers-on may be excluded from being randomly selected. When a Hanger-on is removed from the Gang Roster, all weapons and wargear they are equipped with are deleted instead of going into the gang's Stash.</p>
+
+      Leader:
+        name: Leader
+        description: |
+          <p>One Fighter in every gang must always have the Leader Subtype; if they die, another Fighter is promoted to replace them. Friendly models within 12" and in Line of Sight of a Leader may use the Leader's Cool characteristic for Nerve checks.</p>
+          <p>All Leaders have the Inspiring skill.</p>
+
+      Loner:
+        name: Loner
+        description: |
+          <p>A gang cannot use the Leadership characteristic of a Loner for Bottle checks unless every friendly model on the battlefield is either a Beast or a Loner.</p>
+
+      Mounted:
+        name: Mounted
+        description: |
+          <p>Many items of wargear grant a Fighter the Mounted Subtype. The following rules apply to Mounted Fighters:</p>
+          <ul>
+            <li><b>Optional Equipment:</b> When determining which models are available for a scenario, the controlling player may decide if any Fighter with wargear that grants the Mounted Subtype will use that wargear during the battle. This decision is made for all Fighters before determining starting crews and cannot be changed mid-battle. Fighters cannot get off their mounts nor get on another model's mount during a battle.</li>
+            <li><b>Skills:</b> In addition to their normal skills, all Mounted Fighters gain the Nerves of Steel and Hit &amp; Run skills.</li>
+            <li><b>Mounted Fighters and Terrain:</b> Mounted Fighters cannot climb up nor down walls or ladders. They can still attempt to jump down to lower levels or jump gaps as normal.</li>
+            <li><b>Gun It:</b> When a Mounted Fighter performs a Charge or Dash action, they may only move directly forwards, and can only make one 90&deg; turn during the action.</li>
+            <li><b>Agile Subtype:</b> Some mounts will grant the Fighter the Agile Subtype as well as the Mounted Subtype. Mounted Fighters with the Agile Subtype can make as many turns as they wish while performing a Charge or Dash action.</li>
+            <li><b>Hands Full:</b> A Mounted Fighter cannot be equipped with any weapon that has the Heavy or Paired trait unless it also has the Lance or Lance-bomb trait, though such weapons may be included on the Fighter's Model Cards that do not include the mount as part of their equipment. Additionally, a Mounted Fighter may not use a Secondary weapon in close combat.</li>
+          </ul>
+
+      Pet:
+        name: Pet
+        description: |
+          <p>Pets are purchased as wargear for a model and as such their Credits Value is included on the owning model's Model Card. Pets are automatically included in a gang's starting crew if their owner is, and do not count against the crew or reinforcement limits. When their owner is deployed to the battlefield, including as part of a special rule, any Pets they own are deployed following the rules for the model's deployment within their Leash range of their owner.</p>
+          <p>When a model that owns any Pets activates, check if each of their Pets are outside of their Leash range; any that are will become Panicked. The model and their Pets then activate in an order of the controlling player's choice, each model fully resolving their activation before the next one activates.</p>
+          <p>When a model goes Out of Action or is removed from the battlefield for any reason, any Pets they have on the battlefield are also removed.</p>
+          <p>When a Pet is taken Out of Action, they do not trigger a Bottle check nor do they force nearby models to make a Nerve check, though they do have to take Nerve checks if other models are taken Out of Action near them.</p>
+          <p>Pets cannot control objectives, though they do prevent enemy Fighters from controlling them.</p>
+          <p><b>Panicked:</b> when a Pet that is Panicked activates, depending on their Status they must perform the action dictated by the table below. They perform this action even if another rule or Condition would cause them to perform a different action (for example, the Insanity or Frenzy Conditions):</p>
+          <table>
+            <thead><tr><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>Ready</td><td>Dash</td></tr>
+              <tr><td>Suppressed</td><td>Move</td></tr>
+              <tr><td>Seriously Injured</td><td>Crawl</td></tr>
+              <tr><td>Engaged</td><td>Retreat</td></tr>
+            </tbody>
+          </table>
+          <p class="text-small text-muted">They must attempt to end their activation within Leash Range of their owner. If they are unable to do so, they must end their activation as close as possible to their owner.</p>
+
+      Prospect:
+        name: Prospect
+        description: |
+          <p>When a Prospect is taken Out of Action, friendly models only need to make Nerve checks if they themselves are also Prospects, though they do have to take Nerve checks if other models are taken Out of Action near them.</p>
+          <p>If, during the Post-cycle Sequence, a Prospect should reach at least 13 XP, they are promoted to become a Ganger. Instead of rolling to determine an Advancement, they replace the Prospect Subtype with the Ganger Subtype and gain the Specialist Subtype (this means they then immediately select a specialisation and gain the associated skill), keeping all of their existing Subtypes and increasing their Credit Cost by +15 credits. This does not cause them to change their Fighter entry &mdash; if a Van Saar Subtek becomes promoted to a Ganger they remain a Van Saar Subtek, they do not become a Van Saar Tek.</p>
+
+      Specialist:
+        name: Specialist
+        description: |
+          <p>When a Specialist is added to the Gang Roster, they must select one of the following specialisations. Each specialisation grants the Fighter a free skill:</p>
+          <table>
+            <thead><tr><th>Specialist Type</th><th>Free Skill</th></tr></thead>
+            <tbody>
+              <tr><td>Heavy</td><td>Bulging Biceps</td></tr>
+              <tr><td>Gunner</td><td>Hip-Shooting</td></tr>
+              <tr><td>Gunslinger</td><td>Gunfighter</td></tr>
+              <tr><td>Scout</td><td>Clamber</td></tr>
+              <tr><td>Sniper</td><td>Precision Shot</td></tr>
+              <tr><td>Brawler</td><td>Berserker</td></tr>
+              <tr><td>Medic</td><td>Medicate</td></tr>
+              <tr><td>Tech</td><td>Munitioneer</td></tr>
+            </tbody>
+          </table>
+
+      Support:
+        name: Support
+        description: |
+          <p>A Support Fighter can always be included in a gang's starting crew, does not count against the crew limit, and can never be targeted with a ranged attack unless they are the closest model.</p>
+
+      Wyrd:
+        name: Wyrd
+        description: |
+          <p>A Wyrd may use Wyrd Powers (see <b>Action Resolution &rarr; Wyrd Powers</b>). Wyrds treat Wyrd Powers as a Secondary Skill Set.</p>
+
+  Vehicle:
+    name: Vehicle Subtypes
+    description: |
+      <p>All Vehicles have a Subtype based on their method of Locomotion that affects how they interact with both difficult and dangerous terrain. Vehicles may also have multiple different Subtypes applied to them. For example, a Van Saar 'Arachnirig' Servo-Suit has the Loner and Walker Subtypes.</p>
+    subtypes:
+      Hybrid:
+        name: Hybrid
+        description: |
+          <p>A Vehicle with this Subtype uses a mix of methods for Locomotion; it may choose which of its Locomotion Subtypes to use when activating.</p>
+
+      Loner:
+        name: Loner
+        description: |
+          <p>A gang cannot use the Leadership characteristics of a Loner for Bottle checks unless every friendly model on the battlefield is either a Beast or a Loner.</p>
+
+      Manoeuvrable:
+        name: Manoeuvrable
+        description: |
+          <p>A Vehicle with this Subtype may perform one additional 90&deg; turn when performing the Charge or Dash action.</p>
+
+      Skimmer:
+        name: Skimmer
+        description: |
+          <p>A Vehicle with the Skimmer Locomotion Subtype ignores all difficult or dangerous terrain when moving. However, if it ends its activation on difficult or dangerous terrain, a Skimmer must make an Agility test. If the test is passed, it has successfully negotiated the terrain. If it is failed, it suffers a Str -, AP -, L1 hit that automatically wounds and ignores all saves.</p>
+
+      Tracked:
+        name: Tracked
+        description: |
+          <p>A Vehicle with the Tracked Locomotion Subtype is designed to keep going over all terrain &mdash; though they struggle to reach high speeds. A Tracked Vehicle suffers no penalty for moving over difficult terrain.</p>
+
+      Transport_X:
+        name: Transport (X)
+        description: |
+          <p>A Vehicle with the Transport (X) Subtype has an enclosed cab on the Vehicle that is designed to carry Fighters. All Transports must have at least one clearly visible access point.</p>
+          <p>The number of Fighters able to fit in a Transport is determined by the value of X. This is the maximum number of Fighters that can embark upon the Vehicle. When deploying at the start of a battle, Fighters can be deployed embarked upon a Transport as long as the Vehicle is already deployed upon the battlefield; Fighters cannot start embarked upon a Vehicle that is in Reinforcements (Brutes and Mounted Fighters cannot enter a Transport).</p>
+          <p>While embarked on a Transport, Fighters are still given ready markers but in all other ways are treated as if they are not on the battlefield, so cannot be the target of any attacks or use any abilities. If any Fighters are embarked on a Vehicle when it is taken Out of Action, they must be placed Suppressed within 1" of the Vehicle before resolving any explosion (if applicable). Any Fighter that cannot be placed in this way is automatically taken Out of Action &mdash; immediately make a roll on the Lasting Injury table for them.</p>
+          <p>If a Fighter performs the Interact action while within 1" of the access point of a friendly Transport, remove them from the battlefield. They are now embarked upon the Transport.</p>
+          <p>While embarked upon a Transport, the only action a Fighter may perform is the Interact action. If a Fighter performs the Interact action while embarked upon a Transport, place them on the battlefield within 1" of an access point and at least 1" away from any enemy models. This may mean that Fighters cannot disembark from a Transport, in which case they cannot perform the Interact action that activation.</p>
+
+      Walker:
+        name: Walker
+        description: |
+          <p>Vehicles with the Walker Locomotion Subtype are highly manoeuvrable and agile, but lack the speed of other Vehicles. A Walker may make as many turns during its activation as it wishes. For every 1" of difficult terrain a Walker moves through, it counts as having moved 2".</p>
+          <p>Additionally, Walkers are treated as if they were Fighters for the purpose of seeing if a model is Engaged. This means that enemy Fighters in base contact with a Walker are considered to be Engaged with it, may not treat it as terrain, and must obey the 1" rule with it.</p>
+
+      Wheeled:
+        name: Wheeled
+        description: |
+          <p>Vehicles with the Wheeled Locomotion Subtype are able to reach high speeds but struggle to maintain their speed over rough terrain. For every 1" of difficult terrain a Wheeled Vehicle moves through, it counts as having moved 2".</p>

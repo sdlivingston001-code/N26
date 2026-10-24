@@ -1,0 +1,86 @@
+---
+layout: default
+title: Rule Summary
+---
+<!--
+  rules.html &mdash; Interactive rule summary / quick reference page.
+  Every section and sub-section is an independently expandable/collapsible
+  <details class="reference-tables-collapsible">, nested to reflect the
+  rules hierarchy (phase > sub-phase, category > entry, etc.).
+  Game Structure, Checks and Tests, Actions, and Action Resolution are
+  authored as Markdown in the rules_sections collection
+  (_rules_sections/*.md) and rendered via the rules-section.html include.
+  The Status and Conditions tables, Model Subtypes, Weapon Trait Reference
+  Table, and Skill Table are rendered at runtime from compiled JSON (see
+  _data/statuses.yml, _data/conditions.yml, _data/modelSubtypes.yml,
+  _data/weaponTraits.yml, and _data/skills.yml).
+  Scripts: rulesUI. Data: statuses.json, conditions.json, modelSubtypes.json, weaponTraits.json, skills.json.
+  Also includes page-nav.html (jump-to-section drawer, see pageNav.js),
+  auto-built from this page's top-level <summary> headings.
+-->
+
+{% include page-nav.html %}
+
+<h1>Rule Summary</h1>
+<p>An expandable quick reference for the core rules. Click any heading to drill down into more detail.</p>
+
+<hr class="hr-dark" style="margin: 30px 0;">
+
+{% include rules-section.html slug="game-structure" %}
+
+<details class="reference-tables-collapsible">
+  <summary>Model Types and Sub-Types</summary>
+  <p>All models are either <b>Fighters</b> or <b>Vehicles</b>.</p>
+
+  <h4>Fighter</h4>
+  <p>Models with the Fighter Type are the backbone of gangs, their footsoldiers and leaders. The majority of models in a Necromunda gang will be Fighters.</p>
+
+  <h4>Vehicle</h4>
+  <p>Vehicles are far more restricted than Fighters with regard to the actions they can perform during a battle and the Post-cycle Sequence; however, they give gangs access to powerful weaponry upon a fast chassis. Vehicles and their crew are inseparable and when the rules refer to Vehicles, they can refer to either the Vehicle itself or its crew.</p>
+  <p>When a Vehicle is removed from the Gang Roster, all weapons and wargear it is equipped with are deleted instead of going into the gang's Stash.</p>
+  <p>All Vehicles have the <b>Juggernaut</b> skill.</p>
+
+  <div id="rules-model-subtypes-container" class="mt-10"></div>
+</details>
+
+<details class="reference-tables-collapsible">
+  <summary>Status</summary>
+  <p class="text-muted text-small">A model can only have one status at a time. Where a model qualifies for more than one, the lower status in this list takes priority.</p>
+  <div id="rules-statuses-container" class="mt-10"></div>
+  <p><b>Nerve Check:</b> if a friendly model (not a pet) goes Out of Action within 3", pass a Cool check or become Suppressed. (Prospects only cause this check for other Prospects.)</p>
+</details>
+
+<details class="reference-tables-collapsible">
+  <summary>Conditions</summary>
+  <p class="text-muted text-small">Minor, persistent effects a model can suffer in addition to its status.</p>
+  <div id="rules-conditions-container" class="mt-10"></div>
+</details>
+
+{% include rules-section.html slug="checks-and-tests" %}
+
+{% include rules-section.html slug="actions" %}
+
+{% include rules-section.html slug="action-resolution" %}
+
+<details class="reference-tables-collapsible">
+  <summary>Weapon Trait Reference Table</summary>
+  <div id="rules-weapon-traits-container" class="mt-10"></div>
+</details>
+
+<details class="reference-tables-collapsible">
+  <summary>Skill Table</summary>
+  <div id="rules-skills-container" class="mt-10"></div>
+</details>
+
+<script type="module">
+  import { RulesUI } from '{{ "/assets/js/rulesUI.js" | relative_url }}';
+  RulesUI.init(
+    "{{ '/data/statuses.json' | relative_url }}",
+    "{{ '/data/conditions.json' | relative_url }}",
+    "{{ '/data/modelSubtypes.json' | relative_url }}",
+    "{{ '/data/weaponTraits.json' | relative_url }}",
+    "{{ '/data/skills.json' | relative_url }}"
+  );
+</script>
+
+<script type="module" src="{{ '/assets/js/pageNav.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>

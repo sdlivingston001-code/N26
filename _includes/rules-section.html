@@ -1,0 +1,35 @@
+<!--
+  rules-section.html — Renders one top-level Rule Summary section (and,
+  if it has any, its nested child sections) from the rules_sections
+  collection (see _rules_sections/*.md). Each section's Markdown body is
+  pre-converted to HTML by Jekyll, so its "content" attribute is
+  ready-to-use HTML, not raw Markdown.
+
+  Usage: include this file with a "slug" parameter set to the target
+  section's slug (e.g. slug="actions").
+
+  Front matter read from each _rules_sections/*.md document:
+    title               - Display heading for the <summary>.
+    slug                - Unique id used to look this section up and to
+                          match it as a child's "parent".
+    parent              - (children only) slug of the top-level section
+                          this sub-section nests under.
+    order               - Sort order among siblings.
+    collapsible_children - (top-level only) if true, render each child as
+                          its own nested <details>; if omitted, this
+                          section has no children.
+-->
+{% assign section = site.rules_sections | where: "slug", include.slug | first %}
+<details class="reference-tables-collapsible">
+  <summary>{{ section.title }}</summary>
+  {{ section.content }}
+  {% if section.collapsible_children %}
+    {% assign children = site.rules_sections | where: "parent", section.slug | sort: "order" %}
+    {% for child in children %}
+  <details class="reference-tables-collapsible">
+    <summary>{{ child.title }}</summary>
+    {{ child.content }}
+  </details>
+    {% endfor %}
+  {% endif %}
+</details>

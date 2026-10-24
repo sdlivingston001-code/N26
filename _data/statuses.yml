@@ -1,0 +1,33 @@
+# statuses.yml
+#
+# statuses.<StatusName> - One entry per Status (a model can only have one
+# at a time; where it qualifies for more than one, the lower status in
+# statuses.yml's ordering takes priority), matching the Rule Summary
+# page's Status section (tools/rules.html). `name` is raw HTML shown in
+# the Status column (e.g. Fighter/Vehicle qualifiers); `effect` is raw
+# HTML describing what it does. Rendered as table rows by rulesUI.js.
+
+statuses:
+  Active:
+    name: <b>Active</b>
+    effect: Ready to activate with 2 actions. No restrictions.
+
+  Suppressed:
+    name: <b>Suppressed</b>
+    effect: Only has 1 action when activated.
+
+  Engaged:
+    name: <b>Engaged</b>
+    effect: >-
+      Base contact (Fighters) / within 1" (Vehicles) of an enemy. Limited
+      actions: Fight or Retreat. Seriously Injured/Damaged models cannot
+      Engage or be Engaged. Engaging is optional at the start of an
+      activation.
+
+  Seriously_Injured_Damaged:
+    name: <b>Seriously Injured</b> (Fighters) / <b>Seriously Damaged</b> (Vehicles)
+    effect: Limited actions; must make a Recovery test after activating.
+
+  Out_of_Action:
+    name: <b>Out of Action (OOA)</b>
+    effect: Roll on the D66 Lasting Injury (Fighters) or Lasting Damage (Vehicles) table.

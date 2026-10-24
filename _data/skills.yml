@@ -1,0 +1,196 @@
+# skills.yml
+#
+# skills.<Category>.skills.<SkillName> - Skills grouped by their skill set
+#   (Agility, Shooting, Brawn, Combat, Cunning, Savant, Inherent), matching
+#   the Necromunda 2026 Quick Reference Sheet (v1.3). `name` is the display
+#   heading for the category/skill; `description` is raw HTML (rendered
+#   as-is) explaining the rule. Rendered as a nested collapsible reference
+#   section (category > skill) on the Rule Summary page's Skill Table.
+#
+# Note: some skills are also usable by Walker-subtype vehicles on the
+# source sheet; this distinction isn't tracked per-skill here yet.
+
+skills:
+  Agility:
+    name: Agility
+    skills:
+      Catfall:
+        name: Catfall
+        description: |
+          <p>Falling or jumping from a ledge counts as one level less on the Falling table. Can also avoid being Suppressed by a fall by passing an Agility test.</p>
+      Clamber:
+        name: Clamber
+        description: |
+          <p>Movement is not halved when climbing.</p>
+      Dodge:
+        name: Dodge
+        description: |
+          <p>After suffering a wound, but before rolling a save, roll a D6 &mdash; on a 6 the attack is dodged and has no effect. Against template attacks, this instead allows a 2" move before determining whether the model is hit by the template.</p>
+      Mighty_Leap:
+        name: Mighty Leap
+        description: |
+          <p>Can leap up to 4" (instead of the normal 2") without needing an Agility test.</p>
+      Spring_Up:
+        name: Spring up
+        description: |
+          <p>When activated, pass an Agility test to remove the Suppressed condition.</p>
+      Sprint:
+        name: Sprint
+        description: |
+          <p>When Active, can make a Sprint action (Double): move up to M + 2 &times; I". Modifiers that apply to Dash also apply here.</p>
+
+  Shooting:
+    name: Shooting
+    skills:
+      Fast_Shot:
+        name: Fast Shot
+        description: |
+          <p>May perform the Shoot action twice in a single activation.</p>
+      Gunfighter:
+        name: Gunfighter
+        description: |
+          <p>May fire 2 weapons with the Light trait as a single Shoot action. Each may fire at a different target, but targets must be declared before rolling.</p>
+      Hip_Shooting:
+        name: Hip-Shooting
+        description: |
+          <p>All ranged weapons gain the Assault trait (except those with the Heavy trait).</p>
+      Marksman:
+        name: Marksman
+        description: |
+          <p>+1 to hit for ranged weapons fired between short and long range (i.e. not at short range).</p>
+      Precision_Shot:
+        name: Precision Shot
+        description: |
+          <p>If a ranged hit roll is a natural 6, no armour save is allowed due to hitting a weak spot. (Doesn't work for weapons with the Blast or Rapid Fire traits.)</p>
+      Sharpshooter:
+        name: Sharpshooter
+        description: |
+          <p>+2 modifier to hit instead of +1 when making an Aimed Shot.</p>
+
+  Brawn:
+    name: Brawn
+    skills:
+      Bull_Charge:
+        name: Bull Charge
+        description: |
+          <p>Attacks made as part of a charge gain +1 Strength and Knockback (6+).</p>
+      Bulging_Biceps:
+        name: Bulging Biceps
+        description: |
+          <p>May move I" before or after shooting a Heavy weapon with a Braced Shot action. May also use a Secondary weapon when using a close combat weapon with the Heavy trait &mdash; the Secondary cannot also have the Heavy trait.</p>
+      Fearsome:
+        name: Fearsome
+        description: |
+          <p>Gains the Fearsome condition.</p>
+      Iron_Jaw:
+        name: Iron Jaw
+        description: |
+          <p>+2 Toughness in close combat against attacks with no Armour Piercing.</p>
+      Nerves_of_Steel:
+        name: Nerves of Steel
+        description: |
+          <p>When hit by a ranged attack, make a Cool check to ignore the Suppressed condition.</p>
+      Unstoppable:
+        name: Unstoppable
+        description: |
+          <p>Make a Willpower check before making actions; if passed, recover 1 lost wound.</p>
+
+  Combat:
+    name: Combat
+    skills:
+      Berserker:
+        name: Berserker
+        description: |
+          <p>Subject to the Frenzy condition.</p>
+      Combat_Master:
+        name: Combat Master
+        description: |
+          <p>Never suffers close combat interference, and always grants close combat assistance (even when engaged with multiple enemies).</p>
+      Headbutt:
+        name: Headbutt
+        description: |
+          <p>Gains a Headbutt weapon: Short range only, Strength +1, AP -, Lethality 1, with the Additional Attack (1) and Melee traits.</p>
+      Heavy_Blows:
+        name: Heavy Blows
+        description: |
+          <p>+1 Strength when using a Heavy-trait weapon in close combat.</p>
+      Rain_of_Blows:
+        name: Rain of Blows
+        description: |
+          <p>If still Engaged after performing its first Fight action, gains an extra, free Fight action.</p>
+      Two_Weapon_Fighter:
+        name: Two Weapon Fighter
+        description: |
+          <p>Makes 2 attacks with its Secondary weapon in close combat instead of 1 (Light weapons are still limited to 1 attack).</p>
+
+  Cunning:
+    name: Cunning
+    skills:
+      Backstab:
+        name: Backstab
+        description: |
+          <p>All melee-trait weapons also gain the Backstab trait. If a weapon already has Backstab, the bonus becomes +2 Strength rather than the usual +1.</p>
+      Counter_Attack:
+        name: Counter-Attack
+        description: |
+          <p>When an enemy resolves a Fight action involving this model, this model gets 1 extra attack at the same Initiative as that enemy.</p>
+      Cutthroat:
+        name: Cutthroat
+        description: |
+          <p>Can re-roll the D6 rolled for a Coup de Grace action.</p>
+      Infiltrate:
+        name: Infiltrate
+        description: |
+          <p>Deploys after other models, anywhere not visible to and not within 9" of an enemy, or in the enemy's deployment zone. If multiple players have this skill, roll off and the winner deploys first.</p>
+      Lie_Low:
+        name: Lie Low
+        description: |
+          <p>Cannot be targeted for ranged attacks while Suppressed, unless the attacker is within the weapon's short range.</p>
+      Overwatch:
+        name: Overwatch
+        description: |
+          <p>If Active with a ready marker, this model can interrupt a visible enemy that declares an action &mdash; its ready marker is lost to make an immediate Shoot action at the interrupting enemy. If the interrupted enemy becomes Suppressed or Seriously Injured/Damaged, their activation immediately ends without making their remaining action(s).</p>
+
+  Savant:
+    name: Savant
+    skills:
+      Connected:
+        name: Connected
+        description: |
+          <p>Grants a bonus extra Visit the Trading Post action during the post-cycle sequence, generating 1 extra Trade Point.</p>
+      Fast_Reload:
+        name: Fast Reload
+        description: |
+          <p>Reloads ALL weapons when making a Reload action.</p>
+      Iron_Will:
+        name: Iron Will
+        description: |
+          <p>-1 to this model's Bottle check Leadership test result whilst it remains on the battlefield.</p>
+      Medicate:
+        name: Medicate
+        description: |
+          <p>When Active or Suppressed, can perform a Heal Ally action (Single): select a friendly fighter within 1" who isn't Seriously Injured, and they regain 1 lost wound.</p>
+      Mentor:
+        name: Mentor
+        description: |
+          <p>Make a Leadership check for this fighter each time a model within 6" gains XP; if passed, they gain an additional 1 XP.</p>
+      Munitioneer:
+        name: Munitioneer
+        description: |
+          <p>When Active or Suppressed, can perform a Distribute Ammo action (Single): all friendly fighters within 6" make an Intelligence check; if passed, they immediately make a free Reload action, even if it isn't their activation, without removing or requiring a ready marker.</p>
+
+  Inherent:
+    name: Inherent
+    skills:
+      Hit_and_Run:
+        name: Hit and Run
+        description: |
+          <p>After making a Fight action, may always Consolidate even if still Engaged. Must end at least 1" from any enemy.</p>
+      Inspiring:
+        name: Inspiring
+        description: |
+          <p>Can make a Group Activation action as a free action.</p>
+      Juggernaut:
+        name: Juggernaut
+        description: |
+          <p>When hit by a ranged attack, is only Suppressed if it loses a wound or an Injury die is rolled for it.</p>

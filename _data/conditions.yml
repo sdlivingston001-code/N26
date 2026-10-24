@@ -1,0 +1,57 @@
+# conditions.yml
+#
+# conditions.<ConditionName> - One entry per Condition (a minor, persistent
+#   effect a model can suffer in addition to its Status), matching the Rule
+#   Summary page's Conditions section (tools/rules.html). `name` is raw
+#   HTML shown in the Condition column (e.g. Fighter/Vehicle qualifiers);
+#   `effect` is raw HTML describing what it does. Rendered as table rows
+#   by rulesUI.js.
+
+conditions:
+  Injured_Damaged:
+    name: <b>Injured</b> (Fighters) / <b>Damaged</b> (Vehicles)
+    effect: Gained when Wounds reach 0. Can't use skills.
+
+  Out_of_Ammo:
+    name: <b>Out of Ammo</b>
+    effect: Can't shoot the affected weapon until it is reloaded.
+
+  Webbed:
+    name: <b>Webbed</b>
+    effect: Can't move or be moved; -1 to hit rolls. Can break free at the end of an activation by passing a Strength check.
+
+  Insanity:
+    name: <b>Insanity</b>
+    effect: Roll on the insanity table; pass a Willpower check at the end of an activation to recover.
+
+  Intoxicated:
+    name: <b>Intoxicated</b>
+    effect: -1 WS and BS, +1 Cool.
+
+  Blind:
+    name: <b>Blind</b>
+    effect: Loses its ready marker, or the next one gained. Only hits on a natural 6 in close combat.
+
+  Rad_poisoned:
+    name: <b>Rad-poisoned</b>
+    effect: -1 Toughness.
+
+  Concussed:
+    name: <b>Concussed</b>
+    effect: -1 Initiative until the end of its next activation.
+
+  Frenzy:
+    name: <b>Frenzy</b>
+    effect: +1 attack whilst frenzied; must charge the closest enemy if possible.
+
+  Hatred:
+    name: <b>Hatred (X)</b>
+    effect: Re-roll failed to-hit rolls in close combat against X.
+
+  Fearsome:
+    name: <b>Fearsome</b>
+    effect: Enemies must pass a Willpower check when they engage a Fearsome model, or fight at WS 6+. No check is required if the enemy is also Fearsome (only against Terrifying).
+
+  Terrifying:
+    name: <b>Terrifying</b>
+    effect: As Fearsome, and enemies must also pass a Willpower check to charge or engage this model, or lose their activation. No check if the enemy is also Terrifying.

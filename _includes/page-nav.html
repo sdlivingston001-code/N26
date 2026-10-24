@@ -1,0 +1,28 @@
+<!--
+  page-nav.html — "Jump to section" slide-out navigation drawer that
+  drives a single-section view of the page: only the section currently
+  selected from this drawer is visible; all other top-level sections are
+  hidden.
+
+  Opt-in per-page: include this where convenient (position is fixed, so
+  placement in the DOM doesn't matter) and load assets/js/pageNav.js via a
+  <script type="module"> tag on the same page. pageNav.js scans the page's
+  top-level `.main > details.reference-tables-collapsible` elements and
+  builds one link per section automatically — no manual link list to
+  maintain as sections are added or renamed.
+-->
+<button id="page-nav-toggle" class="page-nav-toggle" aria-label="Open section navigation" aria-expanded="false" aria-controls="page-nav-drawer"></button>
+<div id="page-nav-backdrop" class="page-nav-backdrop"></div>
+<nav id="page-nav-drawer" class="page-nav-drawer" aria-hidden="true">
+  <div class="page-nav-header">
+    <span class="page-nav-title">Jump to section</span>
+    <button id="page-nav-close" class="page-nav-close" aria-label="Close navigation"></button>
+  </div>
+  <ul id="page-nav-list" class="page-nav-list"></ul>
+</nav>
+
+<script type="module">
+  import { Icons } from '{{ "/assets/js/icons.js" | relative_url }}';
+  document.getElementById('page-nav-toggle').innerHTML = Icons.list;
+  document.getElementById('page-nav-close').innerHTML = Icons.x;
+</script>

@@ -13,9 +13,10 @@
   <div class="bottom-bar">
     <a id="bottom-bar-home" href="{{ '/' | relative_url }}"></a>
     <a id="bottom-bar-shooting" href="{{ '/tools/shooting.html' | relative_url }}"></a>
+    <a id="bottom-bar-rules" href="{{ '/tools/rules.html' | relative_url }}"></a>
     <script type="module">
       import { Icons } from '{{ "/assets/js/icons.js" | relative_url }}';
-      const map = { home: 'houseLine', shooting: 'dices' };
+      const map = { home: 'houseLine', shooting: 'dices', rules: 'clipboardList' };
       for (const [id, icon] of Object.entries(map)) {
         document.getElementById('bottom-bar-' + id).innerHTML = Icons[icon];
       }
