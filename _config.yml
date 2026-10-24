@@ -4,7 +4,7 @@ collections:
     permalink: /:name/
   rules_sections:
     output: false
-baseurl: "/BadCredit"
+baseurl: "/N26"
 
 plugins:
   - jekyll-seo-tag

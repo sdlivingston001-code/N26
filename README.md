@@ -1,6 +1,6 @@
-# BadCredit — Necromunda Campaign Companion
+# N26
 
-A static-site tool suite for running a **Necromunda Dominion Campaign** with house rules.  
+A static-site tool understanding N26.  
 Built with **Jekyll 4** and vanilla JavaScript; hosted on **GitHub Pages**.
 
 ---
@@ -64,7 +64,7 @@ bundle install
 bundle exec jekyll serve --livereload
 ```
 
-The site will be available at `http://localhost:4000/BadCredit/`.
+The site will be available at `http://localhost:4000//`.
 
 ### Project structure
 
