@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/scenarios/scenarios.json
----
-{{ site.data.scenarios | jsonify }}

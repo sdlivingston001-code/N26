@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/scenarios/scenario_MeatForTheGrinder.json
----
-{{ site.data.scenarios.scenario_MeatForTheGrinder | jsonify }}

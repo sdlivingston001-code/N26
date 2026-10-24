@@ -1,10 +1,9 @@
 ---
 layout: default
-title: BadCredit
+title: N26
 ---
 
-# Welcome to the Necromunda Dominion Campaign
-
+# This is a personal use website only.
 
 ---
 
