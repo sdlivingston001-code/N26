@@ -22,6 +22,8 @@ title: Rule Summary
 
 {% include page-nav.html title="Rules" %}
 
+<p class="nav-holding" data-nav-holding>Open the menu to choose a rule section.</p>
+
 {% for group in site.data.rulesGroups %}
   {% assign group_prefix = "_rules/" | append: group.id | append: "/" %}
   {% include rules-tree.html prefix=group_prefix group=group id_prefix="" %}

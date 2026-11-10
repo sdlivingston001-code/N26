@@ -3,7 +3,7 @@ title: Shooting
 order: 6
 ---
 
-#### Shooting Actions
+## Shooting Actions
 
 | Action | Type | Effect |
 |---|---|---|
@@ -13,7 +13,7 @@ order: 6
 | Fire All | Double | Fire all of the model's weapons, including Heavy ones, each at a target declared before any rolls are made. |
 | Reload | Single | Reload a ranged weapon that is Out of Ammo. |
 
-#### Shooting Sequence
+## Shooting Sequence
 
 1. **Declare target** in line of sight.
 2. **Measure range.**

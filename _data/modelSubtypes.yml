@@ -6,61 +6,64 @@
 #   heading for the group/subtype; `description` is Markdown or HTML (run
 #   through markdownify, which leaves HTML untouched). Rendered at build time
 #   by _includes/rules-subtypes.html: each group is an entry in the
-#   navigation drawer (e.g. model-types-fighter-subtypes) containing one
-#   collapsible per subtype.
+#   navigation drawer (e.g. model-types-fighter-subtypes), itself containing
+#   one navigation entry per subtype (e.g.
+#   model-types-fighter-subtypes-beast).
 
 model_subtypes:
   Fighter:
     name: Fighter Subtypes
     description: |
-      <p>All Fighters have a Subtype that dictates their position within a gang and which Post-cycle Actions they may perform. Fighters may also have multiple different Subtypes applied to them. For example, a Cawdor Sheen Bird is a Fighter (Beast, Flying, Pet), meaning that they are a Fighter that is subject to the rules of the Beast, Flying and Pet Subtypes.</p>
+      <p>All Fighters have one or more Subtypes.</p>
     subtypes:
       Beast:
         name: Beast
         description: |
-          <p>A Beast is an animal that can only perform limited actions. Unless stated otherwise, a Beast may not perform the following actions:</p>
-          <ul>
-            <li>Interact</li>
-            <li>Treat Ally</li>
-          </ul>
-          <p>Additionally, a Beast may not assist a model making a Recovery test, and a gang cannot use the Leadership characteristic of a Beast for Bottle checks unless every friendly model on the battlefield is a Beast.</p>
+          <p>Unless stated otherwise, a Beast may not perform the <b>Interact</b> or <b>Treat Ally</b> actions.</p>
+          <p>A Beast may not <b>Assist</b> a model making a <b>Recovery test</b>.</p>
+          <p>A gang cannot use the <b>Leadership</b> characteristic of a Beast for <b>Bottle checks</b> unless every friendly model on the battlefield is a Beast.</p>
 
       Brute:
         name: Brute
         description: |
-          <p>All Brutes have the Juggernaut skill. When a Brute is removed from the Gang Roster, all weapons and wargear they are equipped with are deleted instead of going into the gang's Stash.</p>
+          <p>All Brutes have the <a href="#skills-inherent-juggernaut">Juggernaut</a> skill.</p>
+          <p>When a Brute is removed from the Gang Roster, all weapons and wargear they are equipped with are deleted instead of going into the gang's Stash.</p>
 
       Champion:
         name: Champion
         description: |
-          <p>Friendly models within 6" and in Line of Sight of a Champion may use the Champion's Cool characteristic for Nerve checks.</p>
-          <p>All Champions have the Inspiring skill.</p>
+          <p>Friendly models within 6" and in Line of Sight of a Champion may use the Champion's <b>Cool</b> characteristic for <b>Nerve checks</b>.</p>
+          <p>All Champions have the <a href="#skills-inherent-inspiring">Inspiring</a> skill.</p>
 
       Flying:
         name: Flying
         description: |
-          <p>A Flying Fighter may move between levels without needing to climb a wall or ladder by measuring a straight line between their starting and final positions. They may move over terrain and other Fighters in this manner, though they still need to move up and over the terrain. Additionally, whenever they fall, they are not Suppressed and never take any damage. They may not, however, ignore impassable terrain and may not end their movement with their base overlapping an obstacle or another Fighter's base.</p>
+          <p>Flying Fighters may move between levels without needing to climb a wall or ladder by measuring a straight line between their starting and final positions. They may move over terrain and other Fighters in this manner, though they still need to move up and over the terrain. They may not, however, ignore impassable terrain and may not end their movement with their base overlapping an obstacle or another Fighter's base.</p>
+          <p>Flying Fighters are not <a href="#statuses-suppressed">Suppressed</a> and never take any damage when they fall.</p>
 
       Ganger:
         name: Ganger
         description: |
-          <p>If during the Post-cycle Sequence a Ganger should reach at least 37 XP, they are promoted to a Champion. After rolling to determine an Advancement, they replace the Ganger Subtype with the Champion Subtype, keeping all their other existing Subtypes. From that point onwards they are treated as a Champion of the appropriate gang. This does not cause them to change their Fighter entry &mdash; if an Escher Gang Sister becomes promoted to a Champion she remains an Escher Gang Sister, she does not become an Escher Death Maiden or Escher Matriarch.</p>
+          <p>If during the Post-cycle Sequence a Ganger should reach at least <b>37 XP</b>, they are promoted to a <b>Champion</b>. After rolling to determine an <b>Advancement</b>, they replace the Ganger Subtype with the Champion Subtype, keeping all their other existing Subtypes.</p>
+          <p>Other than the change in Subtype and Advancement described above, no other changes are made to the Fighter card; their characteristics, skills, other Subtypes, and equipment remain the same. For example, if an Escher Gang Sister becomes promoted to a Champion she remains an Escher Gang Sister, she does not become an Escher Death Maiden or Escher Matriarch.</p>
 
       Hanger_on:
         name: Hanger-on
         description: |
-          <p>When selecting a gang's starting crew and creating their Reinforcements deck, Hangers-on may be excluded from being randomly selected. When a Hanger-on is removed from the Gang Roster, all weapons and wargear they are equipped with are deleted instead of going into the gang's Stash.</p>
+          <p>When selecting a gang's starting crew and creating their Reinforcements deck, Hangers-on may be excluded from being randomly selected.</p>
+          <p>When a Hanger-on is removed from the Gang Roster, all weapons and wargear they are equipped with are deleted instead of going into the gang's Stash.</p>
 
       Leader:
         name: Leader
         description: |
-          <p>One Fighter in every gang must always have the Leader Subtype; if they die, another Fighter is promoted to replace them. Friendly models within 12" and in Line of Sight of a Leader may use the Leader's Cool characteristic for Nerve checks.</p>
-          <p>All Leaders have the Inspiring skill.</p>
+          <p>One Fighter in every gang must always have the Leader Subtype; if they die, another Fighter is promoted to replace them see <a href="#death-of-a-leader">Death of a Leader</a>.</p>
+          <p>Friendly models within 12" and in Line of Sight of a Leader may use the Leader's <b>Cool</b> characteristic for <b>Nerve checks</b>.</p>
+          <p>All Leaders have the <a href="#skills-inherent-inspiring">Inspiring</a> skill.</p>
 
       Loner:
         name: Loner
         description: |
-          <p>A gang cannot use the Leadership characteristic of a Loner for Bottle checks unless every friendly model on the battlefield is either a Beast or a Loner.</p>
+          <p>A gang cannot use the <b>Leadership</b> characteristic of a Loner for <b>Bottle checks</b> unless every friendly model on the battlefield is either a Beast or a Loner.</p>
 
       Mounted:
         name: Mounted

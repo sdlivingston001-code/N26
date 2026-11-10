@@ -1,11 +1,12 @@
 <!--
   rules-subtypes.html — Renders _data/modelSubtypes.yml: a list of links, one
   per group (Fighter Subtypes, Vehicle Subtypes), each opening that group's
-  own page (e.g. model-types-fighter-subtypes) in the navigation drawer. The
-  group page shows its intro text and one collapsible per subtype. The group
-  blocks are link-only: hidden in the parent's view and shown only when
-  selected. Ids are built from the enclosing section's id (the page slug, or
-  the optional parent_id parameter).
+  own page (e.g. model-types-fighter-subtypes) in the navigation drawer. A
+  group page contains one navigation entry per subtype (e.g.
+  model-types-fighter-subtypes-beast). The group blocks are link-only: hidden
+  in the parent's view and shown only when selected. Ids are built from the
+  enclosing section's id (the page slug, or the optional parent_id
+  parameter).
 -->
 {% assign parent_id = include.parent_id | default: page.slug %}
 <ul>
@@ -21,7 +22,8 @@
 {{ subtype_group.description | markdownify }}
 {% for entry in subtype_group.subtypes %}
 {% assign subtype = entry[1] %}
-{% include rules-entry.html title=subtype.name body=subtype.description %}
+{% assign subtype_id = subtype_group_id | append: "-" | append: subtype.name | slugify %}
+{% include rules-entry.html id=subtype_id title=subtype.name body=subtype.description %}
 {% endfor %}
 {% endcapture %}
 {% include rules-entry.html id=subtype_group_id title=subtype_group.name raw=subtype_blocks link_only=true %}

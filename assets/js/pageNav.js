@@ -24,8 +24,10 @@
  *     shown as normal collapsibles) under a static heading. Everything else
  *     on the page is hidden (`.nav-off`), and ancestor headers are hidden.
  *   - Links to any nav node id (e.g. Markdown `[text](#movement)`) switch to
- *     that view. The initial view comes from the URL hash, otherwise the
- *     first section. Back/forward work.
+ *     that view. The initial view comes from the URL hash. With no (or an
+ *     unknown) hash, an optional `[data-nav-holding]` element is shown
+ *     instead; if the page has none, the first section is shown.
+ *     Back/forward work.
  *
  * The drawer is built once from the rendered page, so every entry (including
  * those generated from YAML data) must be present in the HTML at build time.
@@ -74,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = Array.from(document.querySelectorAll('.main > details.reference-tables-collapsible'));
   if (sections.length === 0) return;
 
+  const holding = document.querySelector('[data-nav-holding]');
   const links = new Map();       // node id -> drawer <a>
   const nodeItems = new Map();   // node id -> drawer <li>
   let lastPath = [];
@@ -248,6 +251,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const target = targetId ? document.getElementById(targetId) : null;
     const topLevel = target ? sections.find(section => section.contains(target)) : null;
+
+    // No view selected: show the holding page (if the page has one)
+    if (!topLevel && holding) {
+      sections.forEach(section => {
+        section.classList.remove('active');
+        section.open = false;
+      });
+      holding.hidden = false;
+      lastPath = [];
+      links.forEach(a => a.classList.remove('active'));
+      return;
+    }
+    if (holding) holding.hidden = true;
+
     const active = topLevel || sections[0];
     const viewEl = topLevel
       ? target.closest('details[data-nav-child], .page-nav-section')

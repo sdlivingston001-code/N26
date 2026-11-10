@@ -1272,6 +1272,17 @@ svg[xmlns] {
   display: none;
 }
 
+/* Holding page shown until a section is chosen */
+.nav-holding {
+  text-align: center;
+  opacity: 0.6;
+  margin: 3em 1em;
+}
+
+.nav-holding[hidden] {
+  display: none;
+}
+
 /* Link-only children (data-nav-link-only): hidden while their parent is the
    view, because the parent links to them; shown when selected. */
 .page-nav-section details[data-nav-link-only]:not(.nav-path) {
