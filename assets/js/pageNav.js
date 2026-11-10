@@ -1,26 +1,34 @@
 /**
- * pageNav.js — Builds and wires up the "Jump to section" navigation
- * drawer (see _includes/page-nav.html) from the page's top-level
- * collapsible reference sections (`.main > details.reference-tables-collapsible`),
- * and drives a single-section view: only the section currently selected
- * from the drawer is shown; every other top-level section is hidden
- * (`display: none` via the `.page-nav-section` / `.active` classes).
+ * pageNav.js — Builds and wires up the navigation drawer (see
+ * _includes/page-nav.html) and drives a single-view layout: only the view
+ * selected from the drawer is shown.
  *
- * One link is generated per top-level section, in document order, using
- * its <summary> text as both the label and (slugified) anchor id. This
- * means the drawer's contents never need manual upkeep — adding, removing,
- * or renaming a top-level section on the page automatically updates the
- * drawer on next load.
+ * Navigation tree
+ *   - Top level: groups (`data-nav-group` / `data-nav-group-title` on a
+ *     top-level `.main > details.reference-tables-collapsible` section).
+ *     Sections without a group are listed directly.
+ *   - Below a section: any `details[data-nav-child]` nested inside it, to
+ *     any depth (a child's own nav children are the `data-nav-child`
+ *     details whose nearest enclosing `details` is that child).
  *
- * Nested sub-sections inside the visible top-level section keep their
- * normal independent expand/collapse behaviour — only top-level
- * visibility is managed here.
+ * Drawer behaviour
+ *   - Every time the drawer is opened it starts again from the top level:
+ *     only the group names are shown. Selecting a group, or the
+ *     chevron/link of an item that has children, reveals the next level
+ *     down; opening one entry collapses its siblings.
+ *   - Selecting an item shows its view. If it has children the drawer stays
+ *     open so you can keep drilling; if it is a leaf the drawer closes.
  *
- * Clicking a link shows that section (hiding all others), closes the
- * drawer, scrolls it into view, and updates the URL hash. The initial
- * section shown on load is taken from the URL hash if it matches a
- * section id, otherwise the first section is shown. Browser back/forward
- * (hash changes) are also honoured.
+ * Views
+ *   - A view is one nav node: its own content (including any nav children,
+ *     shown as normal collapsibles) under a static heading. Everything else
+ *     on the page is hidden (`.nav-off`), and ancestor headers are hidden.
+ *   - Links to any nav node id (e.g. Markdown `[text](#movement)`) switch to
+ *     that view. The initial view comes from the URL hash, otherwise the
+ *     first section. Back/forward work.
+ *
+ * Entries added after load (rulesUI.js dispatches `rules:rendered` once its
+ * data-driven blocks exist) are picked up by rebuilding the drawer.
  *
  * No external dependencies.
  */
@@ -38,6 +46,31 @@ function slugify(text) {
     .replace(/^-+|-+$/g, '');
 }
 
+/**
+ * @param {Element} details - A <details> element.
+ * @returns {string} Text of its own <summary>.
+ */
+function titleOf(details) {
+  return details.querySelector(':scope > summary').textContent.trim();
+}
+
+/**
+ * @param {Element} node - A nav node (section or data-nav-child details).
+ * @returns {Element[]} Its direct nav children.
+ */
+function navChildren(node) {
+  return Array.from(node.querySelectorAll('details[data-nav-child]'))
+    .filter(d => d.parentElement.closest('details') === node);
+}
+
+// rulesUI.js may finish rendering before or after the drawer is initialised
+let rebuildNav = null;
+let refreshPending = false;
+document.addEventListener('rules:rendered', () => {
+  if (rebuildNav) rebuildNav();
+  else refreshPending = true;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('page-nav-toggle');
   const closeBtn = document.getElementById('page-nav-close');
@@ -49,48 +82,228 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = Array.from(document.querySelectorAll('.main > details.reference-tables-collapsible'));
   if (sections.length === 0) return;
 
-  const links = [];
-  sections.forEach(section => {
-    const summary = section.querySelector(':scope > summary');
-    if (!summary) return;
-    if (!section.id) section.id = slugify(summary.textContent);
-    section.classList.add('page-nav-section');
+  const links = new Map();       // node id -> drawer <a>
+  const nodeItems = new Map();   // node id -> drawer <li>
+  let currentView = null;
+  let lastPath = [];
 
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = `#${section.id}`;
-    a.textContent = summary.textContent;
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      showSection(section.id);
-      closeDrawer();
-      history.pushState(null, '', `#${section.id}`);
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-    li.appendChild(a);
-    list.appendChild(li);
-    links.push(a);
+  sections.forEach(section => {
+    if (!section.id) section.id = slugify(titleOf(section));
+    section.classList.add('page-nav-section');
   });
 
   /**
-   * Show only the section matching targetId; hide all others. Falls back
-   * to the first section if targetId doesn't match any known section.
-   * @param {string} targetId
+   * Stop a view's own heading (and any top-level heading) from toggling.
+   * Safe to call repeatedly as new nodes appear.
    */
-  function showSection(targetId) {
-    const match = sections.some(section => section.id === targetId);
-    const activeId = match ? targetId : sections[0].id;
-    sections.forEach(section => {
-      const isActive = section.id === activeId;
-      section.classList.toggle('active', isActive);
-      section.open = isActive;
-    });
-    links.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === `#${activeId}`);
+  function bindSummaries() {
+    const nodes = [...sections, ...document.querySelectorAll('.main details[data-nav-child]')];
+    nodes.forEach(node => {
+      if (node.dataset.navBound) return;
+      node.dataset.navBound = 'true';
+      node.querySelector(':scope > summary').addEventListener('click', (e) => {
+        if (node.classList.contains('page-nav-section') || node.classList.contains('nav-view')) {
+          e.preventDefault();
+        }
+      });
     });
   }
 
+  /**
+   * @param {HTMLElement} li - A drawer item or group.
+   * @returns {{button: Element|null, sub: HTMLElement|null}}
+   */
+  function controlsOf(li) {
+    return {
+      button: li.querySelector(':scope > .page-nav-group-toggle, :scope > .page-nav-row > .page-nav-expand'),
+      sub: li.querySelector(':scope > ul'),
+    };
+  }
+
+  /**
+   * Show or hide an item's next level. Hiding also resets everything below.
+   * @param {HTMLElement} li
+   * @param {boolean} open
+   */
+  function setOpen(li, open) {
+    const { button, sub } = controlsOf(li);
+    if (!sub) return;
+    sub.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+    if (!open) li.querySelectorAll('li').forEach(inner => {
+      const controls = controlsOf(inner);
+      if (controls.sub) {
+        controls.sub.hidden = true;
+        controls.button.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /**
+   * Open or close an item, collapsing its siblings when opening.
+   * @param {HTMLElement} li
+   * @param {boolean} open
+   */
+  function toggleExclusive(li, open) {
+    if (open) {
+      Array.from(li.parentElement.children).forEach(sibling => {
+        if (sibling !== li) setOpen(sibling, false);
+      });
+    }
+    setOpen(li, open);
+  }
+
+  /**
+   * Build a drawer link for a nav node.
+   * @param {Element} el
+   * @returns {HTMLAnchorElement}
+   */
+  function makeLink(el) {
+    const a = document.createElement('a');
+    a.href = `#${el.id}`;
+    a.textContent = titleOf(el);
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showView(el.id);
+      if (navChildren(el).length > 0) {
+        toggleExclusive(nodeItems.get(el.id), true);
+      } else {
+        closeDrawer();
+      }
+      history.pushState(null, '', `#${el.id}`);
+    });
+    links.set(el.id, a);
+    return a;
+  }
+
+  /**
+   * Build the drawer item for a nav node, recursing into its children.
+   * @param {Element} el
+   * @returns {HTMLLIElement}
+   */
+  function buildNode(el) {
+    const li = document.createElement('li');
+    const row = document.createElement('div');
+    row.className = 'page-nav-row';
+    row.appendChild(makeLink(el));
+    li.appendChild(row);
+    nodeItems.set(el.id, li);
+
+    const children = navChildren(el);
+    if (children.length > 0) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'page-nav-expand';
+      button.setAttribute('aria-label', `Show ${titleOf(el)} sub-sections`);
+      const sub = document.createElement('ul');
+      children.forEach(child => sub.appendChild(buildNode(child)));
+      row.appendChild(button);
+      li.appendChild(sub);
+      setOpen(li, false);
+      button.addEventListener('click', () => toggleExclusive(li, sub.hidden));
+    }
+    return li;
+  }
+
+  /** (Re)build the whole drawer list from the current DOM. */
+  function buildNav() {
+    list.replaceChildren();
+    links.clear();
+    nodeItems.clear();
+
+    const groups = [];
+    sections.forEach(section => {
+      const key = section.dataset.navGroup || '';
+      let group = groups.find(g => g.key === key);
+      if (!group) {
+        group = { key, title: section.dataset.navGroupTitle || '', sections: [] };
+        groups.push(group);
+      }
+      group.sections.push(section);
+    });
+
+    groups.forEach(group => {
+      if (!group.title) {
+        group.sections.forEach(section => list.appendChild(buildNode(section)));
+        return;
+      }
+      const li = document.createElement('li');
+      li.className = 'page-nav-group';
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'page-nav-group-toggle';
+      button.textContent = group.title;
+      const sub = document.createElement('ul');
+      group.sections.forEach(section => sub.appendChild(buildNode(section)));
+      li.appendChild(button);
+      li.appendChild(sub);
+      setOpen(li, false);
+      button.addEventListener('click', () => toggleExclusive(li, sub.hidden));
+      list.appendChild(li);
+    });
+  }
+
+  /**
+   * Show the view for targetId (a nav node, or anything nested inside one).
+   * Falls back to the first section if targetId matches nothing.
+   * @param {string} targetId
+   * @param {{scroll?: boolean}} [options]
+   */
+  function showView(targetId, { scroll = true } = {}) {
+    document.querySelectorAll('.nav-off, .nav-view, .nav-path').forEach(el => el.classList.remove('nav-off', 'nav-view', 'nav-path'));
+    lastPath.forEach(el => {
+      if (el.tagName === 'DETAILS' && !el.classList.contains('page-nav-section')) el.open = false;
+    });
+
+    const target = targetId ? document.getElementById(targetId) : null;
+    const topLevel = target ? sections.find(section => section.contains(target)) : null;
+    const active = topLevel || sections[0];
+    const viewEl = topLevel
+      ? target.closest('details[data-nav-child], .page-nav-section')
+      : active;
+    const deepTarget = topLevel && viewEl !== target ? target : null;
+
+    sections.forEach(section => {
+      const isActive = section === active;
+      section.classList.toggle('active', isActive);
+      section.open = isActive;
+    });
+
+    // Path from the view up to its section: open it, hide everything beside it
+    const path = [];
+    for (let el = viewEl; el; el = el.parentElement) {
+      path.push(el);
+      if (el === active) break;
+    }
+    path.forEach(el => {
+      el.classList.add('nav-path');
+      if (el.tagName === 'DETAILS') el.open = true;
+    });
+    path.slice(1).forEach(ancestor => {
+      Array.from(ancestor.children).forEach(child => {
+        if (!path.includes(child)) child.classList.add('nav-off');
+      });
+    });
+    viewEl.classList.add('nav-view');
+    lastPath = path;
+    currentView = viewEl;
+
+    if (deepTarget) {
+      for (let el = deepTarget; el && el !== viewEl; el = el.parentElement) {
+        if (el.tagName === 'DETAILS') el.open = true;
+      }
+    }
+
+    links.forEach((a, id) => a.classList.toggle('active', id === viewEl.id));
+    if (scroll) {
+      (deepTarget || viewEl).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  /** Open the drawer, always starting again from the top level (groups only). */
   function openDrawer() {
+    Array.from(list.children).forEach(item => setOpen(item, false));
+    drawer.scrollTop = 0;
     drawer.classList.add('open');
     backdrop.classList.add('open');
     drawer.setAttribute('aria-hidden', 'false');
@@ -117,8 +330,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeDrawer();
   });
   window.addEventListener('hashchange', () => {
-    showSection(window.location.hash.replace('#', ''));
+    showView(window.location.hash.replace('#', ''));
   });
 
-  showSection(window.location.hash.replace('#', ''));
+  rebuildNav = () => {
+    bindSummaries();
+    buildNav();
+    const hashId = window.location.hash.replace('#', '');
+    const hashExists = !!hashId && !!document.getElementById(hashId);
+    const id = hashExists ? hashId : (currentView ? currentView.id : '');
+    showView(id, { scroll: hashExists && (!currentView || currentView.id !== hashId) });
+  };
+
+  bindSummaries();
+  buildNav();
+  showView(window.location.hash.replace('#', ''), { scroll: false });
+  if (refreshPending) rebuildNav();
 });

@@ -1,11 +1,12 @@
 ---
 title: Interactions
-parent: action-resolution
-order: 2
+slug: interactions
+group: resolve
+order: 5
 ---
 
 | Action | Type | Effect |
-|---|---|---|
+| --- | --- | --- |
 | Treat Ally | Single | A Seriously Injured fighter within 1" immediately makes a Recovery test. |
 | Repair | Single | A Seriously Damaged vehicle within 1" immediately makes a Recovery test. |
 | Coup de Grace | Single | Against a Seriously Injured fighter within 1": both models roll a D6 and add Strength; if tied, or the attacker is higher, the target is taken Out of Action. |

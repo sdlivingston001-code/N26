@@ -1,7 +1,8 @@
 ---
 title: Wyrd Powers
-parent: action-resolution
-order: 5
+slug: wyrd-powers
+group: resolve
+order: 9
 ---
 
 Models with the **Wyrd** subtype can Manifest and Disrupt psychic powers.

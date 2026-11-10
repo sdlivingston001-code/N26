@@ -1263,6 +1263,139 @@ svg[xmlns] {
   display: block;
 }
 
+/* The top-level header of the visible section is a plain title, not a toggle */
+.page-nav-section > summary {
+  cursor: default;
+}
+
+.page-nav-section > summary::before {
+  display: none;
+}
+
+/* Views: everything beside the selected view's path is hidden (.nav-off, set
+   by pageNav.js), and the selected view's heading is a static title. */
+.nav-off {
+  display: none !important;
+}
+
+.page-nav-section .nav-path.reference-tables-collapsible,
+.page-nav-section .nav-view.reference-tables-collapsible {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+}
+
+.page-nav-section .nav-view.reference-tables-collapsible > summary {
+  font-size: 1.5em;
+  cursor: default;
+}
+
+.page-nav-section .nav-view.reference-tables-collapsible > summary::before {
+  display: none;
+}
+
+/* Drawer: group rows and drill-down */
+.page-nav-group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: none;
+  border-bottom: 1px solid #eee;
+  background: transparent;
+  color: #222;
+  font-size: 1.05em;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+}
+
+.page-nav-group-toggle:hover {
+  background: #f5f5f5;
+}
+
+.page-nav-group-toggle::after {
+  content: '▶';
+  font-size: 0.7em;
+  transition: transform 0.2s;
+}
+
+.page-nav-group-toggle[aria-expanded="true"]::after {
+  transform: rotate(90deg);
+}
+
+.page-nav-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page-nav-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #eee;
+}
+
+.page-nav-row > a {
+  flex: 1;
+  border-bottom: none;
+}
+
+.page-nav-expand {
+  width: 48px;
+  padding: 0;
+  border: none;
+  border-left: 1px solid #eee;
+  background: transparent;
+  color: #222;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.page-nav-expand:hover {
+  background: #f5f5f5;
+}
+
+.page-nav-expand::before {
+  content: '▶';
+  display: inline-block;
+  font-size: 0.7em;
+  transition: transform 0.2s;
+}
+
+.page-nav-expand[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+/* Indent each drill-down level (group > item > child > grandchild) */
+.page-nav-group ul ul a {
+  padding-left: 2.25rem;
+  font-weight: normal;
+  background: #fafafa;
+}
+
+.page-nav-group ul ul ul a {
+  padding-left: 3.25rem;
+}
+
+.page-nav-group ul ul ul ul a {
+  padding-left: 4.25rem;
+}
+
+.page-nav-group ul ul a.active {
+  font-weight: bold;
+  padding-left: calc(2.25rem - 4px);
+}
+
+.page-nav-group ul ul ul a.active {
+  padding-left: calc(3.25rem - 4px);
+}
+
+.page-nav-group ul ul ul ul a.active {
+  padding-left: calc(4.25rem - 4px);
+}
+
 @media (max-width: 600px) {
   .page-nav-toggle {
     top: 12px;

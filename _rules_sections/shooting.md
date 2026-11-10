@@ -1,7 +1,8 @@
 ---
 title: Shooting
-parent: action-resolution
-order: 3
+slug: shooting
+group: resolve
+order: 6
 ---
 
 #### Shooting Actions
@@ -20,4 +21,4 @@ order: 3
 2. **Measure range.**
 3. **Roll to Hit** (≥ BS of the shooter). -1 modifier against a Seriously Injured/Damaged target; random target allocation when firing at an Engaged model. A natural 6 always hits, a natural 1 always fails.
 4. **Suppress the target** if hit (and make an Agility test or fall, if within 0.5" of a ledge).
-5. **Resolve the hit** — see **Resolve Hits**.
+5. **Resolve the hit** — see [Resolve Hits](#resolve-hits).

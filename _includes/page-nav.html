@@ -15,7 +15,7 @@
 <div id="page-nav-backdrop" class="page-nav-backdrop"></div>
 <nav id="page-nav-drawer" class="page-nav-drawer" aria-hidden="true">
   <div class="page-nav-header">
-    <span class="page-nav-title">Jump to section</span>
+    <span class="page-nav-title">{{ include.title | default: "Jump to section" }}</span>
     <button id="page-nav-close" class="page-nav-close" aria-label="Close navigation"></button>
   </div>
   <ul id="page-nav-list" class="page-nav-list"></ul>

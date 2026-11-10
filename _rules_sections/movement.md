@@ -1,19 +1,20 @@
 ---
 title: Movement
-parent: action-resolution
-order: 1
+slug: movement
+group: resolve
+order: 4
 ---
 
-#### Movement Actions
+## Movement Actions
 
 | Action | Type | Effect |
-|---|---|---|
+| --- | --- | --- |
 | Move | Single | Move up to M" (not within 1" of an enemy). |
 | Dash | Double | Move up to M + I" (not within 1" of an enemy). Vehicles may only make one turn of ≤90° during a Dash. |
 | Engage | Single | Move up to D6" towards an enemy. If it ends Engaged (Fighters) / within 1" (Vehicles), make a free Fight or Coup de Grace action respectively. |
 | Charge | Double | Move up to M + D6" towards an enemy. If it ends Engaged / within 1", make a free Fight or Coup de Grace action respectively. Grants +1 Attack and +2 Initiative. Vehicles may only make one turn of ≤90° during a Charge. |
 
-#### Movement Rules
+## Movement Rules
 
 - **1" rule:** Can only move within 1" of an enemy model during Charge, Engage, Retreat, and Crawl actions; when Charging/Engaging, this is only allowed if the action ends in base contact. Models can never move through other models.
 - **Vehicles as scenery:** Fighters may move over a Vehicle as if it were scenery. If the Vehicle then moves and the Fighter is not in a designated transport area, the Fighter must pass an Agility test or be placed 1" away in a direction chosen by scatter die.
@@ -27,10 +28,10 @@ order: 1
 - **Ledges:** Agility test required, or the model falls. Railings give +1 to this test.
 - **Jumping down deliberately:** Agility test; if passed, treat the fall as one level less on the Falling table.
 
-#### Falling Table
+## Falling Table
 
 | Distance | Result |
-|---|---|
+| --- | --- |
 | &gt; 3" | Suppressed; ends its turn if activating. |
 | 3" – 6" | Suppressed; ends its turn if activating; suffers 1 automatic Lethality 1 wound, no saves. |
 | ≥ 6" | Out of Action. |

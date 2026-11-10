@@ -1,7 +1,8 @@
 ---
 title: Recovery Tests
-parent: action-resolution
-order: 7
+slug: recovery-tests
+group: resolve
+order: 10
 ---
 
 A Seriously Injured/Damaged model makes a Recovery test (rolling Injury dice) after activating.

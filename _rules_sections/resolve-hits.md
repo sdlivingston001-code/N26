@@ -1,7 +1,8 @@
 ---
 title: Resolve Hits
-parent: action-resolution
-order: 6
+slug: resolve-hits
+group: resolve
+order: 8
 ---
 
 1. **Make a wound roll (D6)**

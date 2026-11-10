@@ -23,7 +23,7 @@ title: N26
 
 <span id="idx-mundamanager"></span>[Munda Manager](https://www.mundamanager.com/sign-in/)<br>
 
-<span id="idx-rulesnatcher"></span>[Rule Snatcher](https://n23-rulesnatcher.ashenquarter.com/)<br>
+<span id="idx-rulesnatcher"></span>[AshenQuarter Rule Snatcher](https://n23-rulesnatcher.ashenquarter.com/)<br>
 
 <script type="module">
   import { Icons } from '{{ "/assets/js/icons.js" | relative_url }}';

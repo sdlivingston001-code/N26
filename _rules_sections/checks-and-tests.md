@@ -1,6 +1,7 @@
 ---
 title: Checks and Tests
 slug: checks-and-tests
+group: resolve
 order: 2
 ---
 
