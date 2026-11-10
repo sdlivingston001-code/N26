@@ -1,0 +1,28 @@
+<!--
+  rules-skills.html — Renders _data/skills.yml: a list of links, one per skill
+  group (Agility, Shooting, ...), each opening that group's own page (e.g.
+  skills-agility) in the navigation drawer. A group page contains one
+  navigation entry per skill (e.g. skills-agility-catfall). The group blocks
+  are link-only: hidden in the parent's view and shown only when selected.
+  Ids are built from the enclosing section's id (the page slug, or the
+  optional parent_id parameter).
+-->
+{% assign parent_id = include.parent_id | default: page.slug %}
+<ul>
+{% for category in site.data.skills.skills %}
+{% assign skill_group = category[1] %}
+<li><a href="#{{ parent_id | append: "-" | append: skill_group.name | slugify }}">{{ skill_group.name }}</a></li>
+{% endfor %}
+</ul>
+{% for category in site.data.skills.skills %}
+{% assign skill_group = category[1] %}
+{% assign skill_group_id = parent_id | append: "-" | append: skill_group.name | slugify %}
+{% capture skill_blocks %}
+{% for entry in skill_group.skills %}
+{% assign skill = entry[1] %}
+{% assign skill_id = skill_group_id | append: "-" | append: skill.name | slugify %}
+{% include rules-entry.html id=skill_id title=skill.name body=skill.description %}
+{% endfor %}
+{% endcapture %}
+{% include rules-entry.html id=skill_group_id title=skill_group.name raw=skill_blocks link_only=true %}
+{% endfor %}

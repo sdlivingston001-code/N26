@@ -1,0 +1,21 @@
+<!--
+  rules-entry.html — One collapsible block. Used by the data-driven includes
+  (rules-skills, rules-subtypes, rules-traits) so every entry is built the
+  same way.
+
+  Parameters:
+    title  - Text of the summary heading.
+    body   - Markdown or HTML for the entry's content (run through markdownify,
+             which leaves existing HTML untouched).
+    raw    - Pre-built HTML placed before the body (e.g. nested entries).
+    id     - Optional. If given, the block gets this id and becomes an entry
+             in the navigation drawer (it is marked as a nav child).
+    link_only - Optional. With id, the block is hidden in its parent's view
+             (the parent is expected to link to it) and shown only when it is
+             the selected page.
+-->
+<details class="reference-tables-collapsible"{% if include.id %} id="{{ include.id }}" data-nav-child{% endif %}{% if include.link_only %} data-nav-link-only{% endif %}>
+<summary>{{ include.title }}</summary>
+{{ include.raw }}
+{{ include.body | markdownify }}
+</details>

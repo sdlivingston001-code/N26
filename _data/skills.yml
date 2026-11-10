@@ -3,9 +3,11 @@
 # skills.<Category>.skills.<SkillName> - Skills grouped by their skill set
 #   (Agility, Shooting, Brawn, Combat, Cunning, Savant, Inherent), matching
 #   the Necromunda 2026 Quick Reference Sheet (v1.3). `name` is the display
-#   heading for the category/skill; `description` is raw HTML (rendered
-#   as-is) explaining the rule. Rendered as a nested collapsible reference
-#   section (category > skill) on the Rule Summary page's Skill Table.
+#   heading for the category/skill; `description` is Markdown or HTML (it is
+#   run through markdownify, which leaves HTML untouched). Rendered at build
+#   time by _includes/rules-skills.html on the Rule Summary page: each
+#   category and each skill becomes an entry in the navigation drawer
+#   (ids like skills-agility-catfall).
 #
 # Note: some skills are also usable by Walker-subtype vehicles on the
 # source sheet; this distinction isn't tracked per-skill here yet.

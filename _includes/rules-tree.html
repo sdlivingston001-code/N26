@@ -1,0 +1,44 @@
+<!--
+  rules-tree.html — Renders the rules sections that sit directly inside a
+  folder of the rules collection, each followed by its own children (the
+  files in a folder named after it), recursively.
+
+  The hierarchy comes entirely from the folder layout under _rules/:
+    _rules/<group>/<section>.md              top-level section in a group
+    _rules/<group>/<section>/<child>.md      child of that section
+    _rules/<group>/<section>/<child>/...     and so on, to any depth
+
+  Parameters:
+    prefix     - Path prefix of the folder to render (ends with a slash).
+    group      - Top level only: the entry from _data/rulesGroups.yml.
+                 Marks the sections as navigation roots under that group.
+    id_prefix  - Prefix for element ids ("" at the top level).
+
+  Ids: a top-level section's id is its file name, a child's id is the parent
+  id + "-" + its file name (e.g. actions-engaged). Front matter needed: title
+  and order. Sections are sorted by order.
+-->
+{% assign found = "" | split: "" %}
+{% for doc in site.rules %}
+{% if doc.relative_path contains include.prefix %}
+{% assign rest = doc.relative_path | remove_first: include.prefix %}
+{% unless rest contains "/" %}
+{% assign found = found | push: doc %}
+{% endunless %}
+{% endif %}
+{% endfor %}
+{% assign found = found | sort: "order" %}
+{% for node in found %}
+{% assign node_id = include.id_prefix | append: node.slug %}
+{% assign child_prefix = node.relative_path | remove: ".md" | append: "/" %}
+{% assign child_id_prefix = node_id | append: "-" %}
+{% if include.group %}
+<details class="reference-tables-collapsible" id="{{ node_id }}" data-nav-group="{{ include.group.id }}" data-nav-group-title="{{ include.group.title }}">
+{% else %}
+<details class="reference-tables-collapsible" id="{{ node_id }}" data-nav-child>
+{% endif %}
+<summary>{{ node.title }}</summary>
+{{ node.content }}
+{% include rules-tree.html prefix=child_prefix id_prefix=child_id_prefix %}
+</details>
+{% endfor %}

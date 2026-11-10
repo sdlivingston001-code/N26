@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/conditions.json
----
-{{ site.data.conditions | jsonify }}

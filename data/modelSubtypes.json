@@ -1,5 +1,0 @@
----
-layout: null
-permalink: /data/modelSubtypes.json
----
-{{ site.data.modelSubtypes | jsonify }}

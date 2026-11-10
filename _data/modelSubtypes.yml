@@ -2,10 +2,12 @@
 #
 # model_subtypes.<Group>.subtypes.<SubtypeName> - Fighter and Vehicle
 #   Subtypes, grouped into two top-level groups (Fighter, Vehicle) matching
-#   the Rule Summary page's Model section (tools/rules.html). `name` is the
-#   display heading for the group/subtype; `description` is raw HTML
-#   (rendered as-is) explaining the rule. Rendered as a nested collapsible
-#   reference section (group > subtype) by rulesUI.js.
+#   the Rule Summary page's Model Types section. `name` is the display
+#   heading for the group/subtype; `description` is Markdown or HTML (run
+#   through markdownify, which leaves HTML untouched). Rendered at build time
+#   by _includes/rules-subtypes.html: each group is an entry in the
+#   navigation drawer (e.g. model-types-fighter-subtypes) containing one
+#   collapsible per subtype.
 
 model_subtypes:
   Fighter:

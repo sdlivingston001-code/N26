@@ -1,3 +1,8 @@
+# rulesGroups.yml
+#
+# Top-level groups of the Rule Summary page, in navigation-drawer order.
+#   id    - Must match a folder name under _rules/ (e.g. _rules/reference/).
+#   title - Heading shown in the drawer.
 - id: reference
   title: Reference
 - id: resolve

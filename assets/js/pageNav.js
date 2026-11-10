@@ -27,8 +27,8 @@
  *     that view. The initial view comes from the URL hash, otherwise the
  *     first section. Back/forward work.
  *
- * Entries added after load (rulesUI.js dispatches `rules:rendered` once its
- * data-driven blocks exist) are picked up by rebuilding the drawer.
+ * The drawer is built once from the rendered page, so every entry (including
+ * those generated from YAML data) must be present in the HTML at build time.
  *
  * No external dependencies.
  */
@@ -63,14 +63,6 @@ function navChildren(node) {
     .filter(d => d.parentElement.closest('details') === node);
 }
 
-// rulesUI.js may finish rendering before or after the drawer is initialised
-let rebuildNav = null;
-let refreshPending = false;
-document.addEventListener('rules:rendered', () => {
-  if (rebuildNav) rebuildNav();
-  else refreshPending = true;
-});
-
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('page-nav-toggle');
   const closeBtn = document.getElementById('page-nav-close');
@@ -84,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const links = new Map();       // node id -> drawer <a>
   const nodeItems = new Map();   // node id -> drawer <li>
-  let currentView = null;
   let lastPath = [];
 
   sections.forEach(section => {
@@ -286,7 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     viewEl.classList.add('nav-view');
     lastPath = path;
-    currentView = viewEl;
 
     if (deepTarget) {
       for (let el = deepTarget; el && el !== viewEl; el = el.parentElement) {
@@ -333,17 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showView(window.location.hash.replace('#', ''));
   });
 
-  rebuildNav = () => {
-    bindSummaries();
-    buildNav();
-    const hashId = window.location.hash.replace('#', '');
-    const hashExists = !!hashId && !!document.getElementById(hashId);
-    const id = hashExists ? hashId : (currentView ? currentView.id : '');
-    showView(id, { scroll: hashExists && (!currentView || currentView.id !== hashId) });
-  };
-
   bindSummaries();
   buildNav();
   showView(window.location.hash.replace('#', ''), { scroll: false });
-  if (refreshPending) rebuildNav();
 });

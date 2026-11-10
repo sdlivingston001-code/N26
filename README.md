@@ -42,31 +42,35 @@ Shared modules used across tools:
 _data/*.yml  →  Jekyll build  →  data/*.json  →  fetch() at runtime  →  Engine  →  UI
 ```
 
-YAML data files in `_data/` are compiled to JSON by Jekyll's `jekyll-json` pipeline and served as static files under `data/`. Each tool's `DOMContentLoaded` handler fetches the relevant JSON file(s) and passes data to its engine.
+YAML data files in `_data/` are compiled to JSON by Jekyll's `jekyll-json` pipeline and served as static files under `data/`. Each tool's `DOMContentLoaded` handler fetches the relevant JSON file(s) and passes data to its engine. (The Rule Summary page is the exception: it renders its YAML at build time with Liquid, so it fetches nothing.)
 
 ### Rule Summary sections (one repeatable structure)
 
-Every section of the Rule Summary page is a small Markdown file in the `rules_sections` collection (`_rules_sections/*.md`). `tools/rules.html` never needs editing: it loops over the groups in `_data/rulesGroups.yml` (currently **Resolve** and **Reference**), and renders each group's top-level sections through `_includes/rules-section.html`.
+Every section of the Rule Summary page is a small Markdown file in the `rules` collection (`_rules/`). **The folder layout is the whole hierarchy:**
 
-Front matter:
+```
+_rules/<group>/<section>.md             top-level section in a group
+_rules/<group>/<section>/<child>.md     child of that section (any depth)
+```
+
+`tools/rules.html` never needs editing: it loops over the groups in `_data/rulesGroups.yml` (currently **Reference** and **Resolve**; each `id` must match a folder under `_rules/`) and `_includes/rules-tree.html` renders everything at build time, recursing into child folders.
+
+Front matter is just:
 
 | Key | Use |
 |-----|-----|
 | `title` | Heading shown for the section. |
-| `slug` | (top-level) Anchor id of the section; children reference it. |
-| `group` | (top-level) `id` of a group in `_data/rulesGroups.yml`; groups are the headings in the burger menu. |
-| `parent` | (child) `slug` of the section to nest under. |
-| `order` | Sort position among siblings. |
+| `order` | Sort position among its siblings. |
 
-To add a section: create `_rules_sections/<name>.md` with the front matter above and write plain Markdown (lists, tables, headings).
+To add a section, create a Markdown file in the right folder (lists, tables and headings; Liquid includes work too). Group, parent and anchor id all come from the path.
 
 **Navigation:** the burger menu (`pageNav.js`) shows one view at a time and drills down one level at a time. Every time it is opened it starts again at the top level, showing only the group names (Reference, Resolve); choosing one reveals its sections, and any section with children has a chevron revealing the next level (e.g. Reference → Skills → Agility → Catfall). Opening an entry collapses its siblings. Choosing an item shows it; items with children keep the menu open so you can keep drilling, leaves close it. A view shows one node's content under a static heading (its own children appear as collapsibles).
 
-Children come from `parent` front matter, and also from data-driven blocks: add `data-rules-nav` to a placeholder (e.g. `<div data-rules-source="skills" data-rules-group="Agility" data-rules-nav></div>`) and each item it renders becomes its own menu entry and view (id `<section id>-<slugified name>`, e.g. `skills-agility-catfall`). Without the attribute the items are plain collapsibles. Group order in the menu follows `_data/rulesGroups.yml`.
+Navigation children come from child files, and also from data-driven includes (see below): `rules-skills.html` and `rules-subtypes.html` link from their section to each group (skill groups, Fighter/Vehicle subtypes), and each group is its own menu page (link-only: `rules-entry.html`'s `link_only` option hides a child in its parent's view, shown only when selected). Every skill is also its own menu entry and view (e.g. `skills-agility-catfall`). `rules-traits.html` gives plain collapsibles inside its section. Group order in the menu follows `_data/rulesGroups.yml`.
 
-**Linking between sections:** a top-level section's id is its `slug` and a child's id is `<parent-slug>-<slugified-title>` (e.g. `actions-engaged`). Any Markdown can link to either, e.g. `[Recovery Tests](#recovery-tests)`; the page switches to the right view.
+**Linking between sections:** a top-level section's id is its file name and a child's id is `<parent id>-<file name>` (e.g. `actions-engaged`). Any Markdown can link to either, e.g. `[Recovery Tests](#recovery-tests)`; the page switches to the right view.
 
-**Embedding YAML-driven content:** put a placeholder in the Markdown, e.g. `<div data-rules-source="statuses"></div>`. `rulesUI.js` fetches `data/<source>.json` (built from `_data/<source>.yml`) and renders it via the matching entry in its `RENDERERS` map (extra `data-rules-*` attributes are passed through, e.g. `data-rules-group="Fighter"` or `data-rules-group="Agility"` for one skill group). Currently used: `statuses`, `conditions`, `modelSubtypes`, `weaponTraits`, `skills`. A new data block needs the YAML file, a JSON passthrough in `data/`, and one `RENDERERS` entry.
+**Embedding YAML-driven content (build time):** a section's Markdown includes one of `rules-skills.html`, `rules-subtypes.html` or `rules-traits.html`, which render `_data/skills.yml`, `_data/modelSubtypes.yml` and `_data/weaponTraits.yml` through the shared `rules-entry.html` (one collapsible block; its `body` is run through `markdownify`, so descriptions can be Markdown or HTML). Nothing is fetched at runtime, so the menu is built from final HTML. Only `weaponTraits` and `weaponProfiles` are also published as JSON (`data/*.json`), for the Shooting tool. Statuses and Conditions are plain Markdown tables in their section files.
 
 ---
 
@@ -93,9 +97,10 @@ _config.yml              Jekyll configuration (baseurl, collections, plugins)
 _layouts/default.html    Master HTML layout (head, body wrapper, bottom-bar)
 _includes/bottom-bar.html  Sticky icon navigation bar
 _includes/page-nav.html  Opt-in navigation drawer markup (see pageNav.js)
-_includes/rules-section.html  Renders one rules_sections collection entry (+ children)
+_includes/rules-tree.html  Recursively renders _rules/ folders (sections + children)
+_includes/rules-entry.html  One collapsible block; used by rules-skills/-subtypes/-traits.html
 _data/                   YAML source data (weapon profiles, armour saves, weapon traits, etc.)
-_rules_sections/         Markdown source for every Rule Summary section
+_rules/                  Markdown source for the Rule Summary; folders = hierarchy
 assets/
   css/style.css          Master stylesheet (24 numbered sections)
   js/                    All JavaScript modules (engine/UI pairs + shared)
@@ -111,7 +116,7 @@ All `<script>` and `<link>` tags in the layout append `?v={{ site.time | date: '
 ### Documentation conventions
 
 - **JavaScript** — All Engine and UI modules use JSDoc: a file-level header block (description, key behaviors, `Depends on:`) plus per-method `@param`/`@returns` blocks. Follow this style for any new module or method.
-- **YAML data** — Files under `_data/` (e.g. `weaponProfiles.yml`, `armourSaves.yml`, `weaponTraits.yml`, `skills.yml`, `modelSubtypes.yml`, `statuses.yml`, `conditions.yml`) have a header comment describing their schema/structure — read that first when adding or changing entries.
+- **YAML data** — Files under `_data/` (e.g. `weaponProfiles.yml`, `armourSaves.yml`, `weaponTraits.yml`, `skills.yml`, `modelSubtypes.yml`, `rulesGroups.yml`) have a header comment describing their schema/structure — read that first when adding or changing entries.
 
 ### Known limitations
 

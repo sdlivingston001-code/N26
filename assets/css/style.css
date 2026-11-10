@@ -1272,6 +1272,12 @@ svg[xmlns] {
   display: none;
 }
 
+/* Link-only children (data-nav-link-only): hidden while their parent is the
+   view, because the parent links to them; shown when selected. */
+.page-nav-section details[data-nav-link-only]:not(.nav-path) {
+  display: none;
+}
+
 /* Views: everything beside the selected view's path is hidden (.nav-off, set
    by pageNav.js), and the selected view's heading is a static title. */
 .nav-off {

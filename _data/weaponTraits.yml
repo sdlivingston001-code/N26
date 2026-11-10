@@ -2,9 +2,10 @@
 #
 # weapon_traits.<TraitName> - One entry per weapon trait (Blaze, Disarm,
 #   Knockback, etc.). `name` is the display heading; `description` is raw
-#   HTML (rendered as-is) explaining the rule, referenced from the
-#   scavenged-weapon table in scenario_MeatForTheGrinder.yml, the Shooting
-#   Sequence tool, and the Rule Summary page's Weapon Trait Reference Table.
+#   HTML (injected as-is by the Shooting Sequence tool, so keep it HTML)
+#   explaining the rule, referenced from the scavenged-weapon table in
+#   scenario_MeatForTheGrinder.yml. Also rendered at build time on the Rule
+#   Summary page by _includes/rules-traits.html.
 #   Entries are listed alphabetically, matching the full trait list from
 #   the Necromunda 2026 Quick Reference Sheet (v1.3).
 

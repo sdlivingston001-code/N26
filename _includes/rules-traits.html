@@ -1,0 +1,8 @@
+<!--
+  rules-traits.html — Renders _data/weaponTraits.yml as one plain collapsible
+  per trait. (The same data is also served as JSON for the Shooting tool.)
+-->
+{% for entry in site.data.weaponTraits.weapon_traits %}
+{% assign trait = entry[1] %}
+{% include rules-entry.html title=trait.name body=trait.description %}
+{% endfor %}
