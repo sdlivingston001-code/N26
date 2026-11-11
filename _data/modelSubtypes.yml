@@ -19,14 +19,14 @@ model_subtypes:
       Agile:
         name: Agile
         description: |
-            <p>Mounted Fighters with the Agile Subtype can make as many turns as they wish while performing a <b>Charge</b> or <b>Dash</b> action.</p>
+            <p>A Fighter with both the <a href="#model-types-fighter-subtypes-mounted">Mounted</a> and Agile Subtypes can make as many turns as they wish while performing a <a href="#movement-actions-charge">Charge</a> or <a href="#movement-actions-dash">Dash</a> action.</p>
 
       Beast:
         name: Beast
         description: |
           <p>Unless stated otherwise, a Beast may not perform the <b>Interact</b> or <b>Treat Ally</b> actions.</p>
           <p>A Beast may not <b>Assist</b> a model making a <b>Recovery test</b>.</p>
-          <p>A gang cannot use the <b>Leadership</b> characteristic of a Beast for <b>Bottle checks</b> unless every friendly model on the battlefield is a Beast.</p>
+          <p>A gang cannot use the <b>Leadership</b> characteristic of a Beast for a <a href="#turn-structure-end-phase-bottle-check">Bottle check</a> unless every friendly model on the battlefield is a Beast.</p>
 
       Brute:
         name: Brute
@@ -37,14 +37,14 @@ model_subtypes:
       Champion:
         name: Champion
         description: |
-          <p>Friendly models within 6" and in Line of Sight of a Champion may use the Champion's <b>Cool</b> characteristic for <b>Nerve checks</b>.</p>
+          <p>Friendly models within 6" and in Line of Sight of a Champion may use the Champion's <b>Cool</b> characteristic for <a href="#nerve-checks">Nerve checks</a>.</p>
           <p>All Champions have the <a href="#skills-inherent-inspiring">Inspiring</a> skill.</p>
 
       Flying:
         name: Flying
         description: |
           <p>Flying Fighters may move between levels without needing to climb a wall or ladder by measuring a straight line between their starting and final positions. They may move over terrain and other Fighters in this manner, though they still need to move up and over the terrain. They may not, however, ignore impassable terrain and may not end their movement with their base overlapping an obstacle or another Fighter's base.</p>
-          <p>Flying Fighters are not <a href="#statuses-suppressed">Suppressed</a> and never take any damage when they fall.</p>
+          <p>If a Flying Fighter falls, they are not <a href="#statuses-suppressed">Suppressed</a> and never take any damage.</p>
 
       Ganger:
         name: Ganger
@@ -55,20 +55,21 @@ model_subtypes:
       Hanger_on:
         name: Hanger-on
         description: |
-          <p>When selecting a gang's starting crew and creating their Reinforcements deck, Hangers-on may be excluded from being randomly selected.</p>
+          <p>Fighters with the Hanger-on Subtype may be excluded from being randomly selected when determining a gang's starting crew and creating their Reinforcements deck.</p>
+          <p class="related-rule-note">Fighters with both the <a href="#model-types-fighter-subtypes-support">Support</a> and Hanger-on Subtypes can always be included in a gang's starting crew, does not count against the crew limit, and can never be targeted with a ranged attack unless they are the closest model.</p>
           <p>When a Hanger-on is removed from the Gang Roster, all weapons and wargear they are equipped with are deleted instead of going into the gang's Stash.</p>
 
       Leader:
         name: Leader
         description: |
           <p>One Fighter in every gang must always have the Leader Subtype; if they die, another Fighter is promoted to replace them see <a href="#death-of-a-leader">Death of a Leader</a>.</p>
-          <p>Friendly models within 12" and in Line of Sight of a Leader may use the Leader's <b>Cool</b> characteristic for <b>Nerve checks</b>.</p>
+          <p>Friendly models within 12" and in Line of Sight of a Leader may use the Leader's <b>Cool</b> characteristic for <a href="#nerve-checks">Nerve checks</a>.</p>
           <p>All Leaders have the <a href="#skills-inherent-inspiring">Inspiring</a> skill.</p>
 
       Loner:
         name: Loner
         description: |
-          <p>A gang cannot use the <b>Leadership</b> characteristic of a Loner for <b>Bottle checks</b> unless every friendly model on the battlefield is either a Beast or a Loner.</p>
+          <p>A gang cannot use the <b>Leadership</b> characteristic of a Loner for a <a href="#turn-structure-end-phase-bottle-check">Bottle check</a> unless every friendly model on the battlefield is either a Beast or a Loner.</p>
 
       Mounted:
         name: Mounted
@@ -110,19 +111,16 @@ model_subtypes:
         name: Specialist
         description: |
           <p>When a Specialist is added to the Gang Roster, they must select one of the following specialisations. Each specialisation grants the Fighter a free skill:</p>
-          <table>
-            <thead><tr><th>Specialist Type</th><th>Free Skill</th></tr></thead>
-            <tbody>
-              <tr><td>Heavy</td><td>Bulging Biceps</td></tr>
-              <tr><td>Gunner</td><td>Hip-Shooting</td></tr>
-              <tr><td>Gunslinger</td><td>Gunfighter</td></tr>
-              <tr><td>Scout</td><td>Clamber</td></tr>
-              <tr><td>Sniper</td><td>Precision Shot</td></tr>
-              <tr><td>Brawler</td><td>Berserker</td></tr>
-              <tr><td>Medic</td><td>Medicate</td></tr>
-              <tr><td>Tech</td><td>Munitioneer</td></tr>
-            </tbody>
-          </table>
+          <ul>
+            <li><b>Heavy:</b> <a href="#skills-brawn-bulging-biceps">Brawn - Bulging Biceps</a></li>
+            <li><b>Gunner:</b> <a href="#skills-shooting-hip-shooting">Shooting - Hip-Shooting</a></li>
+            <li><b>Gunslinger:</b> <a href="#skills-shooting-gunfighter">Shooting - Gunfighter</a></li>
+            <li><b>Scout:</b> <a href="#skills-agility-clamber">Agility - Clamber</a></li>
+            <li><b>Sniper:</b> <a href="#skills-shooting-precision-shot">Shooting - Precision Shot</a></li>
+            <li><b>Brawler:</b> <a href="#skills-combat-berserker">Combat - Berserker</a></li>
+            <li><b>Medic:</b> <a href="#skills-savant-medicate">Savant - Medicate</a></li>
+            <li><b>Tech:</b> <a href="#skills-savant-munitioneer">Savant - Munitioneer</a></li>
+          </ul>
 
       Support:
         name: Support

@@ -8,3 +8,5 @@ Walk through post cycle process.
 Loss of a leader.
 
 Clarify the 'visit the trading post'.
+
+<!-- Deleted brute, hanger-on, vehicle -->
