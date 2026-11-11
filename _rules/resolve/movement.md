@@ -35,3 +35,8 @@ order: 4
 | ≥ 6" | Out of Action. |
 
 <p class="text-small text-muted">Falling on another model: roll a D6 &mdash; on a 4+, that model suffers the same result as the faller.</p>
+
+<!-- Terrifying -->
+<!-- Webbed -->
+<!-- Frenzied -->
+<!-- Mounted -->

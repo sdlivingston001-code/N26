@@ -99,6 +99,7 @@ weapon_traits:
     name: Heavy
     description: |
       <p><b>Heavy:</b> A ranged weapon with this trait can only be fired using a Braced Shot action. A melee weapon with this trait is always the Primary weapon and prevents the use of a Secondary weapon.</p>
+#Mounted
 
   Independent:
     name: Independent
@@ -139,6 +140,7 @@ weapon_traits:
     name: Paired
     description: |
       <p><b>Paired (X):</b> Primary weapon only; cannot be used alongside a Secondary weapon. Grants +X attacks.</p>
+#Mounted
 
   Parry:
     name: Parry

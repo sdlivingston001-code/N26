@@ -4,5 +4,7 @@
 -->
 {% for entry in site.data.weaponTraits.weapon_traits %}
 {% assign trait = entry[1] %}
-{% include rules-entry.html title=trait.name body=trait.description %}
+{% assign trait_slug = entry[0] | slugify %}
+{% assign trait_id = "weapon_traits-" | append: trait_slug %}
+{% include rules-entry.html id=trait_id title=trait.name body=trait.description %}
 {% endfor %}

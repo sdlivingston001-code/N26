@@ -16,6 +16,11 @@ model_subtypes:
     description: |
       <p>All Fighters have one or more Subtypes.</p>
     subtypes:
+      Agile:
+        name: Agile
+        description: |
+            <p>Mounted Fighters with the Agile Subtype can make as many turns as they wish while performing a <b>Charge</b> or <b>Dash</b> action.</p>
+
       Beast:
         name: Beast
         description: |
@@ -68,15 +73,12 @@ model_subtypes:
       Mounted:
         name: Mounted
         description: |
-          <p>Many items of wargear grant a Fighter the Mounted Subtype. The following rules apply to Mounted Fighters:</p>
-          <ul>
-            <li><b>Optional Equipment:</b> When determining which models are available for a scenario, the controlling player may decide if any Fighter with wargear that grants the Mounted Subtype will use that wargear during the battle. This decision is made for all Fighters before determining starting crews and cannot be changed mid-battle. Fighters cannot get off their mounts nor get on another model's mount during a battle.</li>
-            <li><b>Skills:</b> In addition to their normal skills, all Mounted Fighters gain the Nerves of Steel and Hit &amp; Run skills.</li>
-            <li><b>Mounted Fighters and Terrain:</b> Mounted Fighters cannot climb up nor down walls or ladders. They can still attempt to jump down to lower levels or jump gaps as normal.</li>
-            <li><b>Gun It:</b> When a Mounted Fighter performs a Charge or Dash action, they may only move directly forwards, and can only make one 90&deg; turn during the action.</li>
-            <li><b>Agile Subtype:</b> Some mounts will grant the Fighter the Agile Subtype as well as the Mounted Subtype. Mounted Fighters with the Agile Subtype can make as many turns as they wish while performing a Charge or Dash action.</li>
-            <li><b>Hands Full:</b> A Mounted Fighter cannot be equipped with any weapon that has the Heavy or Paired trait unless it also has the Lance or Lance-bomb trait, though such weapons may be included on the Fighter's Model Cards that do not include the mount as part of their equipment. Additionally, a Mounted Fighter may not use a Secondary weapon in close combat.</li>
-          </ul>
+         
+            <p><b>Optional Equipment:</b> When determining which models are available for a scenario, the controlling player may decide if any Fighter with wargear that grants the Mounted Subtype will use that wargear during the battle. This decision is made for all Fighters before determining starting crews and cannot be changed mid-battle. Fighters cannot get off their mounts nor get on another model's mount during a battle.</p>
+            <p><b>Skills:</b> In addition to their normal skills, all Mounted Fighters gain the <a href="#skills-brawn-nerves-of-steel">Nerves of Steel</a> and <a href="#skills-inherent-hit-and-run">Hit and Run</a> skills.</p>
+            <p><b>Mounted Fighters and Terrain:</b> Mounted Fighters cannot climb up nor down walls or ladders. They can still attempt to jump down to lower levels or jump gaps as normal.</p>
+            <p><b>Gun It:</b> When a Mounted Fighter performs a <b>Charge</b> or <b>Dash</b> action, they may only move directly forwards, and can only make one 90&deg; turn during the action unless they have the <a href="#model-types-fighter-subtypes-agile">Agile</a> subtype.</p>
+            <p><b>Hands Full:</b> A Mounted Fighter cannot be equipped with any weapon that has the <a href="#weapon_traits-heavy">Heavy</a> or <a href="#weapon_traits-paired">Paired</a> trait unless it also has the <a href="#weapon_traits-lance">Lance</a> or <a href="#weapon_traits-lance-bomb">Lance-bomb</a> trait, though such weapons may be included on the Fighter's Model Cards that do not include the mount as part of their equipment. Additionally, a Mounted Fighter may not use a Secondary weapon in <a href="#close-combat">Close combat</a>.</p>
 
       Pet:
         name: Pet

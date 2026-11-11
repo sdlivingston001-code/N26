@@ -1,6 +1,6 @@
 ---
 title: Seriously Injured
-order: 2
+order: 3
 ---
 
 A Seriously Injured (Fighter) or Seriously Damaged (Vehicle) model's actions are limited to:
