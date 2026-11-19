@@ -1,5 +1,5 @@
 ---
-title: Weapon Traits
+title: Weapon Traits (A-Z)
 order: 5
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Skills
+title: Skills (Group)
 order: 4
 ---
 
