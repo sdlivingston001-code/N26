@@ -16,7 +16,7 @@ deployment_options:
     image: 1_SnipingRange.svg
     order: 1
     description: |
-      <p>Winner of a roll-off selects a battlefield edge.
+      <p>Winner of a roll-off selects an edge.
       <br>Opponent deploys on the opposite edge.
       <br>Gangs must remain at least 12″ from the centre line.</p>
 
@@ -25,7 +25,7 @@ deployment_options:
     image: 2_FaceOff.svg
     order: 2
     description: |
-      <p>Winner of a roll-off selects a battlefield edge.
+      <p>Winner of a roll-off selects an edge.
       <br>Opponent deploys on the opposite edge.
       <br>Gangs must remain at least 9″ from the centre line.</p>
 
@@ -34,7 +34,7 @@ deployment_options:
     image: 3_StandOff.svg
     order: 3
     description: |
-      <p>Winner of a roll-off selects a battlefield edge.
+      <p>Winner of a roll-off selects an edge.
       <br>Opponent deploys on the opposite edge.
       <br>Gangs must remain at least 6″ from the centre line.</p>
 
@@ -52,7 +52,7 @@ deployment_options:
     image: 5_FreeForAll.svg
     order: 5
     description: |
-      <p>Winner of a roll-off selects a battlefield quarter.
+      <p>Winner of a roll-off selects a quarter.
       <br>Opponent deploys in the opposite quarter.
       <br>Gangs must remain at least 9″ from the centre.</p>
 
@@ -61,7 +61,7 @@ deployment_options:
     image: 6_ChanceEncounter.svg
     order: 6
     description: |
-      <p>Winner of a roll-off selects a pair of opposite battlefield corners.
+      <p>Winner of a roll-off selects a pair of opposite corners.
       <br>Opponent deploys in the remaining pair of corners.
       <br>Gangs must remain within 9″ of their deployment corners.
       <br>Gangs must split fighters as evenly as possible between their deployment corners.</p>
