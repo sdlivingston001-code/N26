@@ -16,6 +16,8 @@ title: N26
 
 <span id="idx-rules"></span>[Rule Summary]({{ site.baseurl }}/tools/rules.html)<br><br>
 
+<span id="idx-deployment"></span>[Gang Deployment Options]({{ site.baseurl }}/gang-deployment.html)<br><br>
+
 ---
 ## Third Party Tools...
 
@@ -29,6 +31,7 @@ title: N26
   import { Icons } from '{{ "/assets/js/icons.js" | relative_url }}';
   document.getElementById('idx-shooting').innerHTML = Icons.dices + ' ';
   document.getElementById('idx-rules').innerHTML = Icons.clipboardList + ' ';
+  document.getElementById('idx-deployment').innerHTML = Icons.swords + ' ';
   document.getElementById('idx-necroraw').innerHTML = Icons.magicWand + ' ';
   document.getElementById('idx-mundamanager').innerHTML = Icons.users + ' ';
   document.getElementById('idx-rulesnatcher').innerHTML = Icons.clipboardList + ' ';

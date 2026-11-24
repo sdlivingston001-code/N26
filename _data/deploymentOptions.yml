@@ -1,0 +1,67 @@
+# deploymentOptions.yml
+#
+# deployment_options.<Key> - One entry per gang deployment option, shown on
+#   gang-deployment.md via a dropdown selector (deploymentOptionsUI.js).
+#   `name` is the display name (dropdown label); `image` is the filename
+#   under assets/images/deployment/; `order` controls dropdown order;
+#   `description` is raw HTML explaining the deployment's rules (injected
+#   as-is by the page's script, so keep it HTML).
+#
+#   NOTE: descriptions below are placeholders — replace each with the actual
+#   rules text for that deployment option.
+
+deployment_options:
+  SnipingRange:
+    name: 1 Sniping Range
+    image: 1_SnipingRange.svg
+    order: 1
+    description: |
+      <p>Winner of a roll-off selects a battlefield edge.
+      <br>Opponent deploys on the opposite edge.
+      <br>Gangs must remain at least 12″ from the centre line.</p>
+
+  FaceOff:
+    name: 2 Face Off
+    image: 2_FaceOff.svg
+    order: 2
+    description: |
+      <p>Winner of a roll-off selects a battlefield edge.
+      <br>Opponent deploys on the opposite edge.
+      <br>Gangs must remain at least 9″ from the centre line.</p>
+
+  StandOff:
+    name: 3 Stand Off
+    image: 3_StandOff.svg
+    order: 3
+    description: |
+      <p>Winner of a roll-off selects a battlefield edge.
+      <br>Opponent deploys on the opposite edge.
+      <br>Gangs must remain at least 6″ from the centre line.</p>
+
+  Ambush:
+    name: 4 Ambush
+    image: 4_Ambush.svg
+    order: 4
+    description: |
+      <p>Winner of a roll-off is the Attacker.
+      <br>Defender deploys within 6″ of the centre.
+      <br>Attacker deploys more than 12″ from the centre.</p>
+
+  FreeForAll:
+    name: 5 Free For All
+    image: 5_FreeForAll.svg
+    order: 5
+    description: |
+      <p>Winner of a roll-off selects a battlefield quarter.
+      <br>Opponent deploys in the opposite quarter.
+      <br>Gangs must remain at least 9″ from the centre.</p>
+
+  ChanceEncounter:
+    name: 6 Chance Encounter
+    image: 6_ChanceEncounter.svg
+    order: 6
+    description: |
+      <p>Winner of a roll-off selects a pair of opposite battlefield corners.
+      <br>Opponent deploys in the remaining pair of corners.
+      <br>Gangs must remain within 9″ of their deployment corners.
+      <br>Gangs must split fighters as evenly as possible between their deployment corners.</p>

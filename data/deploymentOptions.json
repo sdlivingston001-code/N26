@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /data/deploymentOptions.json
+---
+{{ site.data.deploymentOptions | jsonify }}
